@@ -18,7 +18,7 @@ export default function ScanProgress({ status }: { status: ScanStatus }) {
 
   useEffect(() => {
     if (done) {
-      const timeout = setTimeout(() => navigate("/"), 1500);
+      const timeout = setTimeout(() => navigate("/gallery"), 1500);
       return () => clearTimeout(timeout);
     }
   }, [done, navigate]);

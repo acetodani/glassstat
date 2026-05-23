@@ -4,6 +4,7 @@ interface PhotoItem {
   id: number;
   file_name: string;
   file_path: string;
+  file_format: string;
   camera: string | null;
   lens: string | null;
   focal_length: number | null;
@@ -13,6 +14,7 @@ interface PhotoItem {
   date_taken: string | null;
   width: number | null;
   height: number | null;
+  has_file: boolean;
 }
 
 interface Props {
@@ -45,7 +47,6 @@ export default function PhotoViewer({ photos, currentIndex, onClose, onNavigate 
     return () => window.removeEventListener("keydown", handleKey);
   }, [onClose, goPrev, goNext]);
 
-  // Touch swipe
   useEffect(() => {
     let startX = 0;
     const handleStart = (e: TouchEvent) => { startX = e.touches[0].clientX; };
@@ -63,22 +64,26 @@ export default function PhotoViewer({ photos, currentIndex, onClose, onNavigate 
   }, [goPrev, goNext]);
 
   return (
-    <div className="fixed inset-0 z-50 bg-cream/95 backdrop-blur-sm animate-fade-in">
-      {/* Close button */}
+    <div className="fixed inset-0 z-50 bg-cream/98 backdrop-blur-md animate-fade-in">
+      {/* Close */}
       <button
         onClick={onClose}
-        className="absolute top-6 right-6 z-10 w-10 h-10 flex items-center justify-center rounded-full bg-warm hover:bg-sand transition-colors"
+        className="absolute top-6 right-6 z-10 w-10 h-10 flex items-center justify-center rounded-full bg-warm hover:bg-sand transition-colors text-ink"
       >
-        <span className="text-lg">&times;</span>
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="2">
+          <path d="M2 2L14 14M14 2L2 14" />
+        </svg>
       </button>
 
-      {/* Navigation arrows */}
+      {/* Arrows */}
       {hasPrev && (
         <button
           onClick={goPrev}
           className="absolute left-4 top-1/2 -translate-y-1/2 z-10 w-12 h-12 flex items-center justify-center rounded-full bg-warm hover:bg-sand transition-colors"
         >
-          <span className="text-xl">&larr;</span>
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="1.5">
+            <path d="M12 4L6 10L12 16" />
+          </svg>
         </button>
       )}
       {hasNext && (
@@ -86,84 +91,101 @@ export default function PhotoViewer({ photos, currentIndex, onClose, onNavigate 
           onClick={goNext}
           className="absolute right-4 top-1/2 -translate-y-1/2 z-10 w-12 h-12 flex items-center justify-center rounded-full bg-warm hover:bg-sand transition-colors"
         >
-          <span className="text-xl">&rarr;</span>
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="1.5">
+            <path d="M8 4L14 10L8 16" />
+          </svg>
         </button>
       )}
 
-      {/* Main content */}
-      <div className="h-full flex flex-col md:flex-row items-center justify-center p-6 gap-8">
-        {/* Image */}
-        <div className="flex-1 flex items-center justify-center max-h-[70vh] md:max-h-[80vh]">
-          <img
-            src={`/api/photos/${photo.id}/file`}
-            alt={photo.file_name}
-            className="max-w-full max-h-full object-contain rounded-2xl shadow-lg"
-            onError={(e) => {
-              (e.target as HTMLImageElement).style.display = "none";
-            }}
-          />
+      {/* Content */}
+      <div className="h-full flex flex-col md:flex-row items-center justify-center p-8 md:p-12 gap-8">
+        {/* Image area */}
+        <div className="flex-1 flex items-center justify-center h-full">
+          {photo.has_file ? (
+            <img
+              key={photo.id}
+              src={`/api/photos/${photo.id}/file`}
+              alt={photo.file_name}
+              className="max-w-full max-h-[75vh] object-contain rounded-2xl shadow-xl animate-fade-in"
+            />
+          ) : (
+            <div className="w-80 h-56 bg-warm rounded-2xl flex flex-col items-center justify-center gap-3">
+              <p className="font-mono text-sm text-stone">{photo.file_name}</p>
+              <p className="font-mono text-xs text-sand">preview not available</p>
+            </div>
+          )}
         </div>
 
         {/* EXIF panel */}
-        <div className="w-full md:w-72 animate-slide-up">
-          <div className="bg-warm rounded-[24px] p-6 space-y-5">
+        <div className="w-full md:w-80 shrink-0 animate-slide-up">
+          <div className="bg-warm rounded-[24px] p-7 space-y-5">
+            {/* File name */}
             <div>
-              <p className="font-mono text-[10px] text-stone uppercase tracking-widest">file</p>
+              <p className="font-mono text-[10px] text-stone uppercase tracking-[0.15em]">file</p>
               <p className="font-sans text-sm font-medium mt-1 truncate">{photo.file_name}</p>
             </div>
 
+            {/* Lens — hero element */}
             {photo.lens && (
-              <div>
-                <p className="font-mono text-[10px] text-stone uppercase tracking-widest">lens</p>
-                <p className="font-display text-xl mt-1">{photo.lens}</p>
+              <div className="py-3 border-y border-sand">
+                <p className="font-mono text-[10px] text-stone uppercase tracking-[0.15em]">lens</p>
+                <p className="font-display text-2xl mt-1 leading-tight">{photo.lens}</p>
               </div>
             )}
 
-            <div className="grid grid-cols-2 gap-4">
-              {photo.focal_length && (
+            {/* EXIF grid */}
+            <div className="grid grid-cols-2 gap-x-6 gap-y-4">
+              {photo.focal_length != null && (
                 <ExifStat label="focal" value={`${photo.focal_length}mm`} />
               )}
-              {photo.aperture && (
+              {photo.aperture != null && (
                 <ExifStat label="aperture" value={`f/${photo.aperture}`} />
               )}
               {photo.shutter_speed && (
                 <ExifStat label="shutter" value={photo.shutter_speed} />
               )}
-              {photo.iso && (
+              {photo.iso != null && (
                 <ExifStat label="iso" value={String(photo.iso)} />
+              )}
+              {photo.width && photo.height && (
+                <ExifStat label="size" value={`${photo.width}×${photo.height}`} />
+              )}
+              {photo.file_format && (
+                <ExifStat label="format" value={photo.file_format} />
               )}
             </div>
 
+            {/* Camera */}
             {photo.camera && (
               <div>
-                <p className="font-mono text-[10px] text-stone uppercase tracking-widest">camera</p>
+                <p className="font-mono text-[10px] text-stone uppercase tracking-[0.15em]">camera</p>
                 <p className="font-sans text-sm mt-1">{photo.camera}</p>
               </div>
             )}
 
+            {/* Date */}
             {photo.date_taken && (
               <div>
-                <p className="font-mono text-[10px] text-stone uppercase tracking-widest">date</p>
-                <p className="font-sans text-sm mt-1">{new Date(photo.date_taken).toLocaleDateString("en-US", {
-                  year: "numeric", month: "long", day: "numeric", hour: "2-digit", minute: "2-digit"
-                })}</p>
-              </div>
-            )}
-
-            {photo.width && photo.height && (
-              <div>
-                <p className="font-mono text-[10px] text-stone uppercase tracking-widest">resolution</p>
-                <p className="font-sans text-sm mt-1">{photo.width} &times; {photo.height}</p>
+                <p className="font-mono text-[10px] text-stone uppercase tracking-[0.15em]">taken</p>
+                <p className="font-sans text-sm mt-1">
+                  {new Date(photo.date_taken).toLocaleDateString("en-US", {
+                    year: "numeric",
+                    month: "short",
+                    day: "numeric",
+                    hour: "2-digit",
+                    minute: "2-digit",
+                  })}
+                </p>
               </div>
             )}
 
             {/* Counter */}
             <div className="pt-4 border-t border-sand flex justify-between items-center">
-              <span className="font-mono text-xs text-stone">
+              <span className="font-mono text-xs text-stone tabular-nums">
                 {currentIndex + 1} / {photos.length}
               </span>
-              <span className="font-mono text-[10px] text-sand">
-                arrows or swipe
+              <span className="font-mono text-[9px] text-sand uppercase tracking-wider">
+                keys / swipe
               </span>
             </div>
           </div>
@@ -176,8 +198,8 @@ export default function PhotoViewer({ photos, currentIndex, onClose, onNavigate 
 function ExifStat({ label, value }: { label: string; value: string }) {
   return (
     <div>
-      <p className="font-mono text-[10px] text-stone uppercase tracking-widest">{label}</p>
-      <p className="font-display text-lg mt-0.5">{value}</p>
+      <p className="font-mono text-[9px] text-stone uppercase tracking-[0.15em]">{label}</p>
+      <p className="font-display text-xl leading-tight mt-0.5">{value}</p>
     </div>
   );
 }

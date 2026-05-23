@@ -2,6 +2,7 @@ from __future__ import annotations
 
 from pathlib import Path
 from typing import List
+import shutil
 
 from fastapi import APIRouter, BackgroundTasks, HTTPException, UploadFile
 from sqlmodel import Session, select
@@ -42,23 +43,37 @@ async def start_scan(directory: str, background_tasks: BackgroundTasks):
 
 @router.post("/upload")
 async def upload_files(files: List[UploadFile], background_tasks: BackgroundTasks):
-    settings.upload_dir.mkdir(parents=True, exist_ok=True)
-    saved_paths = []
+    upload_dir = settings.upload_dir
+    upload_dir.mkdir(parents=True, exist_ok=True)
+    saved_paths: List[Path] = []
 
     for file in files:
-        dest = settings.upload_dir / file.filename
+        if not file.filename:
+            continue
+        dest = upload_dir / file.filename
+        # Avoid overwriting — add suffix if exists
+        counter = 1
+        while dest.exists():
+            stem = Path(file.filename).stem
+            suffix = Path(file.filename).suffix
+            dest = upload_dir / f"{stem}_{counter}{suffix}"
+            counter += 1
+
         content = await file.read()
         dest.write_bytes(content)
         saved_paths.append(dest)
 
-    if saved_paths:
-        background_tasks.add_task(_run_scan, saved_paths)
-        scan_status.is_scanning = True
-        scan_status.total_files = len(saved_paths)
-        scan_status.processed = 0
-        scan_status.errors = 0
+    if not saved_paths:
+        return {"message": "No valid files uploaded", "total": 0}
 
-    return {"message": f"Uploaded {len(saved_paths)} files, scanning..."}
+    scan_status.is_scanning = True
+    scan_status.total_files = len(saved_paths)
+    scan_status.processed = 0
+    scan_status.errors = 0
+
+    background_tasks.add_task(_run_scan, saved_paths)
+
+    return {"message": f"Uploaded {len(saved_paths)} files, scanning...", "total": len(saved_paths)}
 
 
 @router.get("/status")
@@ -89,7 +104,7 @@ def _run_scan(files: List[Path]):
                         session.add(photo)
                 session.commit()
                 scan_status.processed += len(batch)
-            except Exception:
+            except Exception as e:
                 scan_status.errors += len(batch)
                 scan_status.processed += len(batch)
 

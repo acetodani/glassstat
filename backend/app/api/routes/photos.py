@@ -1,7 +1,8 @@
 from __future__ import annotations
 
+import mimetypes
 from typing import Optional
-from fastapi import APIRouter, Depends, Query
+from fastapi import APIRouter, Depends, Query, HTTPException
 from fastapi.responses import FileResponse
 from sqlmodel import Session, select, col
 from pathlib import Path
@@ -27,12 +28,15 @@ def list_photos(
 
     photos = session.exec(query.offset(offset).limit(per_page)).all()
 
+    total = session.exec(select(Photo)).all()
+
     return {
         "photos": [
             {
                 "id": p.id,
                 "file_name": p.file_name,
                 "file_path": p.file_path,
+                "file_format": p.file_format,
                 "camera": p.camera_model,
                 "lens": p.lens_model,
                 "focal_length": p.focal_length,
@@ -44,11 +48,13 @@ def list_photos(
                 "gps_lon": p.gps_lon,
                 "width": p.image_width,
                 "height": p.image_height,
+                "has_file": Path(p.file_path).exists(),
             }
             for p in photos
         ],
         "page": page,
         "per_page": per_page,
+        "total": len(total),
     }
 
 
@@ -56,7 +62,7 @@ def list_photos(
 def get_photo(photo_id: int, session: Session = Depends(get_session)):
     photo = session.get(Photo, photo_id)
     if not photo:
-        return {"error": "not found"}
+        raise HTTPException(404, "Photo not found")
     return {
         "id": photo.id,
         "file_name": photo.file_name,
@@ -76,6 +82,7 @@ def get_photo(photo_id: int, session: Session = Depends(get_session)):
         "gps_lon": photo.gps_lon,
         "width": photo.image_width,
         "height": photo.image_height,
+        "has_file": Path(photo.file_path).exists(),
     }
 
 
@@ -83,8 +90,11 @@ def get_photo(photo_id: int, session: Session = Depends(get_session)):
 def get_photo_file(photo_id: int, session: Session = Depends(get_session)):
     photo = session.get(Photo, photo_id)
     if not photo:
-        return {"error": "not found"}
+        raise HTTPException(404, "Photo not found")
+
     path = Path(photo.file_path)
     if not path.exists():
-        return {"error": "file not found on disk"}
-    return FileResponse(path)
+        raise HTTPException(404, "File not found on disk")
+
+    media_type = mimetypes.guess_type(str(path))[0] or "application/octet-stream"
+    return FileResponse(path, media_type=media_type)
