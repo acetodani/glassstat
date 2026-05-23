@@ -87,7 +87,8 @@ export default function PhotoViewer({ photos, currentIndex, onClose, onNavigate 
               src={`/api/photos/${photo.id}/file`}
               alt={photo.file_name}
               className="max-w-full max-h-[75vh] object-contain rounded-2xl shadow-xl animate-fade-in"
-              style={{ imageOrientation: "from-image" }}
+
+
             />
           ) : (
             <div className="w-80 h-56 bg-warm rounded-2xl flex flex-col items-center justify-center gap-3">

@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { useFetch } from "../../hooks/useAnalytics";
 import { useNavigate } from "react-router-dom";
 import { api, DashboardData } from "../../api/client";
@@ -119,52 +120,91 @@ export default function WrappedPage() {
 }
 
 function BestPhotoCard({ photo }: { photo: BestPhoto }) {
+  const [expanded, setExpanded] = useState(false);
+
   return (
-    <div className="animate-slide-up">
-      <p className="font-mono text-[10px] text-stone uppercase tracking-widest text-center mb-3">
-        your best shot
-      </p>
-      <div className="glass rounded-[24px] overflow-hidden shadow-md">
-        <img
-          src={`/api/photos/${photo.id}/file`}
-          alt={photo.file_name}
-          className="w-full aspect-[3/2] object-cover"
-          style={{ imageOrientation: "from-image" }}
-        />
-        <div className="p-5">
-          <div className="flex items-baseline justify-between">
-            <div>
-              <p className="font-display text-lg">{photo.lens || "Unknown lens"}</p>
-              <p className="font-mono text-xs text-stone mt-0.5">
-                {[
-                  photo.focal_length && `${photo.focal_length}mm`,
-                  photo.aperture && `f/${photo.aperture}`,
-                  photo.iso && `ISO ${photo.iso}`,
-                  photo.shutter_speed,
-                ].filter(Boolean).join(" · ")}
-              </p>
-            </div>
-            {photo.score && (
-              <span className="font-mono text-sm text-ink font-medium">{photo.score}/100</span>
-            )}
-          </div>
-          {photo.subject && (
-            <div className="mt-3 flex items-center gap-2">
-              <span className="glass-subtle rounded-full px-3 py-1 font-mono text-[10px] text-ink capitalize">
-                {photo.subject}
-              </span>
-              {photo.date_taken && (
-                <span className="font-mono text-[10px] text-stone">
-                  {new Date(photo.date_taken).toLocaleDateString("en-US", { month: "short", day: "numeric" })}
-                </span>
+    <>
+      <div className="animate-slide-up">
+        <p className="font-mono text-[10px] text-stone uppercase tracking-widest text-center mb-3">
+          your best shot
+        </p>
+        <button onClick={() => setExpanded(true)} className="w-full text-left glass rounded-[24px] overflow-hidden shadow-md hover:shadow-xl hover:scale-[1.01] transition-all">
+          <img
+            src={`/api/photos/${photo.id}/file`}
+            alt={photo.file_name}
+            className="w-full aspect-[3/2] object-cover"
+          />
+          <div className="p-5">
+            <div className="flex items-baseline justify-between">
+              <div>
+                <p className="font-display text-lg">{photo.lens || "Unknown lens"}</p>
+                <p className="font-mono text-xs text-stone mt-0.5">
+                  {[
+                    photo.focal_length && `${photo.focal_length}mm`,
+                    photo.aperture && `f/${photo.aperture}`,
+                    photo.iso && `ISO ${photo.iso}`,
+                    photo.shutter_speed,
+                  ].filter(Boolean).join(" · ")}
+                </p>
+              </div>
+              {photo.score && (
+                <div className="text-right">
+                  <span className="font-mono text-lg text-sky-600 font-medium">{photo.score}</span>
+                  <span className="font-mono text-[10px] text-stone">/100</span>
+                </div>
               )}
             </div>
-          )}
-          {photo.why && (
-            <p className="font-mono text-[10px] text-stone mt-2 leading-relaxed">{photo.why}</p>
-          )}
-        </div>
+            {photo.subject && (
+              <div className="mt-3 flex items-center gap-2">
+                <span className="glass-subtle rounded-full px-3 py-1 font-mono text-[10px] text-ink capitalize">{photo.subject}</span>
+                {photo.date_taken && (
+                  <span className="font-mono text-[10px] text-stone">
+                    {new Date(photo.date_taken).toLocaleDateString("en-US", { month: "short", day: "numeric" })}
+                  </span>
+                )}
+              </div>
+            )}
+            {photo.why && (
+              <p className="font-mono text-[10px] text-stone mt-2 leading-relaxed">{photo.why}</p>
+            )}
+            <p className="font-mono text-[9px] text-sky-500 mt-3">tap to expand</p>
+          </div>
+        </button>
       </div>
-    </div>
+
+      {/* Expanded fullscreen view */}
+      {expanded && (
+        <div className="fixed inset-0 z-50 bg-black/90 backdrop-blur-md flex items-center justify-center animate-fade-in" onClick={() => setExpanded(false)}>
+          <div className="max-w-3xl w-full p-6" onClick={(e) => e.stopPropagation()}>
+            <img
+              src={`/api/photos/${photo.id}/file`}
+              alt={photo.file_name}
+              className="w-full max-h-[70vh] object-contain rounded-2xl"
+            />
+            <div className="glass-strong rounded-2xl p-6 mt-4 text-center">
+              <p className="font-display text-2xl">{photo.lens}</p>
+              <p className="font-mono text-sm text-stone mt-1">
+                {[photo.focal_length && `${photo.focal_length}mm`, photo.aperture && `f/${photo.aperture}`, photo.iso && `ISO ${photo.iso}`, photo.shutter_speed].filter(Boolean).join(" · ")}
+              </p>
+              <div className="flex items-center justify-center gap-4 mt-4">
+                <div className="text-center">
+                  <p className="font-display text-3xl text-sky-600">{photo.score}</p>
+                  <p className="font-mono text-[9px] text-stone uppercase tracking-wider">score</p>
+                </div>
+                <div className="w-px h-10 bg-white/20" />
+                <div className="text-center">
+                  <p className="font-display text-lg capitalize">{photo.subject}</p>
+                  <p className="font-mono text-[9px] text-stone uppercase tracking-wider">subject</p>
+                </div>
+              </div>
+              {photo.why && <p className="font-mono text-xs text-stone mt-4">{photo.why}</p>}
+            </div>
+            <button onClick={() => setExpanded(false)} className="mt-4 mx-auto block font-mono text-xs text-white/60 hover:text-white transition-colors">
+              close
+            </button>
+          </div>
+        </div>
+      )}
+    </>
   );
 }

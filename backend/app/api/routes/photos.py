@@ -102,6 +102,33 @@ def get_photo_file(photo_id: int, session: Session = Depends(get_session)):
     if not path.exists():
         raise HTTPException(404, "File not found on disk")
 
+    # For JPEG/PNG, serve orientation-corrected version
+    suffix = path.suffix.lower()
+    if suffix in (".jpg", ".jpeg", ".png"):
+        corrected_dir = path.parent / ".corrected"
+        corrected_path = corrected_dir / f"{path.stem}_corrected{suffix}"
+        if corrected_path.exists():
+            return FileResponse(
+                corrected_path,
+                media_type="image/jpeg",
+                headers={"Cache-Control": "public, max-age=86400, immutable"},
+            )
+        try:
+            from PIL import Image, ImageOps
+            corrected_dir.mkdir(exist_ok=True)
+            img = Image.open(path)
+            img = ImageOps.exif_transpose(img)
+            if img.mode != "RGB":
+                img = img.convert("RGB")
+            img.save(corrected_path, "JPEG", quality=92)
+            return FileResponse(
+                corrected_path,
+                media_type="image/jpeg",
+                headers={"Cache-Control": "public, max-age=86400, immutable"},
+            )
+        except Exception:
+            pass
+
     media_type = mimetypes.guess_type(str(path))[0] or "application/octet-stream"
     return FileResponse(
         path,
