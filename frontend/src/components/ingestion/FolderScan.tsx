@@ -1,22 +1,18 @@
 import { useState } from "react";
 import { api } from "../../api/client";
 
-export default function FolderScan() {
+export default function FolderScan({ onScanStart }: { onScanStart: () => void }) {
   const [directory, setDirectory] = useState("");
-  const [scanning, setScanning] = useState(false);
-  const [message, setMessage] = useState("");
+  const [error, setError] = useState("");
 
   const handleScan = async () => {
     if (!directory.trim()) return;
-    setScanning(true);
-    setMessage("");
+    setError("");
     try {
-      const result = await api.startScan(directory.trim()) as { message: string };
-      setMessage(result.message);
+      await api.startScan(directory.trim());
+      onScanStart();
     } catch (err: unknown) {
-      setMessage(err instanceof Error ? err.message : "Scan failed");
-    } finally {
-      setScanning(false);
+      setError(err instanceof Error ? err.message : "Scan failed");
     }
   };
 
@@ -30,18 +26,19 @@ export default function FolderScan() {
           type="text"
           value={directory}
           onChange={(e) => setDirectory(e.target.value)}
+          onKeyDown={(e) => e.key === "Enter" && handleScan()}
           placeholder="/Users/you/Photos"
           className="flex-1 bg-cream border border-sand rounded-xl px-4 py-3 text-sm font-mono focus:outline-none focus:border-ink transition-colors"
         />
         <button
           onClick={handleScan}
-          disabled={scanning || !directory.trim()}
+          disabled={!directory.trim()}
           className="px-6 py-3 bg-ink text-cream rounded-xl text-sm font-medium disabled:opacity-30 hover:bg-ink/80 transition-colors"
         >
-          {scanning ? "..." : "Scan"}
+          Scan
         </button>
       </div>
-      {message && <p className="mt-4 text-sm text-stone">{message}</p>}
+      {error && <p className="mt-4 text-sm text-accent">{error}</p>}
     </div>
   );
 }

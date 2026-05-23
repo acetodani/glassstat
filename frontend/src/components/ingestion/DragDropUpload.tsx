@@ -1,10 +1,9 @@
 import { useState, useCallback } from "react";
 import { api } from "../../api/client";
 
-export default function DragDropUpload() {
+export default function DragDropUpload({ onUploadStart }: { onUploadStart: () => void }) {
   const [dragging, setDragging] = useState(false);
-  const [uploading, setUploading] = useState(false);
-  const [message, setMessage] = useState("");
+  const [error, setError] = useState("");
 
   const handleDrop = useCallback(async (e: React.DragEvent) => {
     e.preventDefault();
@@ -21,15 +20,12 @@ export default function DragDropUpload() {
   };
 
   const uploadFiles = async (files: FileList) => {
-    setUploading(true);
-    setMessage("");
+    setError("");
     try {
-      const result = await api.uploadFiles(files);
-      setMessage(result.message);
+      await api.uploadFiles(files);
+      onUploadStart();
     } catch {
-      setMessage("Upload failed");
-    } finally {
-      setUploading(false);
+      setError("Upload failed");
     }
   };
 
@@ -39,7 +35,7 @@ export default function DragDropUpload() {
       onDragLeave={() => setDragging(false)}
       onDrop={handleDrop}
       className={`border-2 border-dashed rounded-3xl p-12 text-center transition-all cursor-pointer ${
-        dragging ? "border-accent bg-accent/5" : "border-sand hover:border-stone"
+        dragging ? "border-accent bg-accent/5 scale-[1.02]" : "border-sand hover:border-stone"
       }`}
     >
       <input
@@ -51,14 +47,12 @@ export default function DragDropUpload() {
         id="file-upload"
       />
       <label htmlFor="file-upload" className="cursor-pointer">
-        <p className="font-display text-2xl">
-          {uploading ? "Uploading..." : "Drop files here"}
-        </p>
+        <p className="font-display text-2xl">Drop files here</p>
         <p className="text-stone text-sm mt-2">
           JPEG, RAW, HEIF — anything with EXIF
         </p>
       </label>
-      {message && <p className="mt-4 text-sm text-accent">{message}</p>}
+      {error && <p className="mt-4 text-sm text-accent">{error}</p>}
     </div>
   );
 }
