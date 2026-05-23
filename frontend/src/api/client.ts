@@ -74,10 +74,11 @@ export const api = {
   // Single bundled dashboard call
   getDashboard: () => request<DashboardData>("/dashboard/"),
 
-  // Paginated photo list
-  getPhotos: (page = 1, perPage = 50, lens?: string) => {
+  // Paginated photo list with filters
+  getPhotos: (page = 1, perPage = 50, filters?: { lens?: string; camera?: string }) => {
     let url = `/photos/?page=${page}&per_page=${perPage}`;
-    if (lens) url += `&lens=${encodeURIComponent(lens)}`;
+    if (filters?.lens) url += `&lens=${encodeURIComponent(filters.lens)}`;
+    if (filters?.camera) url += `&camera=${encodeURIComponent(filters.camera)}`;
     return request<PhotoListResponse>(url);
   },
 

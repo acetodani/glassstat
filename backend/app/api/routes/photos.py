@@ -18,11 +18,11 @@ def list_photos(
     page: int = Query(1, ge=1),
     per_page: int = Query(50, ge=1, le=200),
     lens: Optional[str] = None,
+    camera: Optional[str] = None,
     session: Session = Depends(get_session),
 ):
     offset = (page - 1) * per_page
 
-    # Use raw select for speed — avoid ORM overhead
     columns = [
         Photo.id, Photo.file_name, Photo.file_format, Photo.camera_model,
         Photo.lens_model, Photo.focal_length, Photo.aperture,
@@ -35,6 +35,9 @@ def list_photos(
     if lens:
         query = query.where(Photo.lens_model == lens)
         count_query = count_query.where(Photo.lens_model == lens)
+    if camera:
+        query = query.where(Photo.camera_model == camera)
+        count_query = count_query.where(Photo.camera_model == camera)
 
     total = session.exec(count_query).one()
     rows = session.exec(query.offset(offset).limit(per_page)).all()
@@ -62,6 +65,27 @@ def list_photos(
         "per_page": per_page,
         "total": total,
         "total_pages": (total + per_page - 1) // per_page,
+    }
+
+
+@router.get("/filters")
+def get_filters(session: Session = Depends(get_session)):
+    """Get available filter options for the library."""
+    lenses = session.exec(
+        select(Photo.lens_model, func.count(Photo.id))
+        .where(Photo.lens_model.isnot(None))
+        .group_by(Photo.lens_model)
+        .order_by(func.count(Photo.id).desc())
+    ).all()
+    cameras = session.exec(
+        select(Photo.camera_model, func.count(Photo.id))
+        .where(Photo.camera_model.isnot(None))
+        .group_by(Photo.camera_model)
+        .order_by(func.count(Photo.id).desc())
+    ).all()
+    return {
+        "lenses": [{"name": l, "count": c} for l, c in lenses],
+        "cameras": [{"name": c, "count": ct} for c, ct in cameras],
     }
 
 

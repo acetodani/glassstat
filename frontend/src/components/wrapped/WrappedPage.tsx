@@ -197,7 +197,7 @@ function BestPhotoCard({ photo }: { photo: BestPhoto }) {
                   <p className="font-mono text-[9px] text-stone uppercase tracking-wider">subject</p>
                 </div>
               </div>
-              {photo.why && <p className="font-mono text-xs text-stone mt-4">{photo.why}</p>}
+              {photo.why && <p className="font-mono text-xs text-sky-300 mt-4">{photo.why}</p>}
             </div>
             <button onClick={() => setExpanded(false)} className="mt-4 mx-auto block font-mono text-xs text-white/60 hover:text-white transition-colors">
               close
