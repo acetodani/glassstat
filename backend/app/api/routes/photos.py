@@ -4,7 +4,7 @@ import mimetypes
 from typing import Optional
 from fastapi import APIRouter, Depends, Query, HTTPException
 from fastapi.responses import FileResponse
-from sqlmodel import Session, select, col
+from sqlmodel import Session, select, func, col
 from pathlib import Path
 
 from app.db.database import get_session
@@ -22,20 +22,20 @@ def list_photos(
 ):
     offset = (page - 1) * per_page
     query = select(Photo).order_by(col(Photo.date_taken).desc())
+    count_query = select(func.count(Photo.id))
 
     if lens:
         query = query.where(Photo.lens_model == lens)
+        count_query = count_query.where(Photo.lens_model == lens)
 
+    total = session.exec(count_query).one()
     photos = session.exec(query.offset(offset).limit(per_page)).all()
-
-    total = session.exec(select(Photo)).all()
 
     return {
         "photos": [
             {
                 "id": p.id,
                 "file_name": p.file_name,
-                "file_path": p.file_path,
                 "file_format": p.file_format,
                 "camera": p.camera_model,
                 "lens": p.lens_model,
@@ -44,17 +44,16 @@ def list_photos(
                 "shutter_speed": p.shutter_speed,
                 "iso": p.iso,
                 "date_taken": str(p.date_taken) if p.date_taken else None,
-                "gps_lat": p.gps_lat,
-                "gps_lon": p.gps_lon,
                 "width": p.image_width,
                 "height": p.image_height,
-                "has_file": Path(p.file_path).exists(),
+                "has_file": p.has_file,
             }
             for p in photos
         ],
         "page": page,
         "per_page": per_page,
-        "total": len(total),
+        "total": total,
+        "total_pages": (total + per_page - 1) // per_page,
     }
 
 
@@ -66,7 +65,6 @@ def get_photo(photo_id: int, session: Session = Depends(get_session)):
     return {
         "id": photo.id,
         "file_name": photo.file_name,
-        "file_path": photo.file_path,
         "file_format": photo.file_format,
         "camera_make": photo.camera_make,
         "camera_model": photo.camera_model,
@@ -82,7 +80,7 @@ def get_photo(photo_id: int, session: Session = Depends(get_session)):
         "gps_lon": photo.gps_lon,
         "width": photo.image_width,
         "height": photo.image_height,
-        "has_file": Path(photo.file_path).exists(),
+        "has_file": photo.has_file,
     }
 
 

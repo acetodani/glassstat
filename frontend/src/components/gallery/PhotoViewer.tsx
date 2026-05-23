@@ -1,21 +1,5 @@
 import { useEffect, useCallback } from "react";
-
-interface PhotoItem {
-  id: number;
-  file_name: string;
-  file_path: string;
-  file_format: string;
-  camera: string | null;
-  lens: string | null;
-  focal_length: number | null;
-  aperture: number | null;
-  shutter_speed: string | null;
-  iso: number | null;
-  date_taken: string | null;
-  width: number | null;
-  height: number | null;
-  has_file: boolean;
-}
+import { PhotoItem } from "../../api/client";
 
 interface Props {
   photos: PhotoItem[];
@@ -65,7 +49,6 @@ export default function PhotoViewer({ photos, currentIndex, onClose, onNavigate 
 
   return (
     <div className="fixed inset-0 z-50 bg-cream/98 backdrop-blur-md animate-fade-in">
-      {/* Close */}
       <button
         onClick={onClose}
         className="absolute top-6 right-6 z-10 w-10 h-10 flex items-center justify-center rounded-full bg-warm hover:bg-sand transition-colors text-ink"
@@ -75,7 +58,6 @@ export default function PhotoViewer({ photos, currentIndex, onClose, onNavigate 
         </svg>
       </button>
 
-      {/* Arrows */}
       {hasPrev && (
         <button
           onClick={goPrev}
@@ -97,9 +79,7 @@ export default function PhotoViewer({ photos, currentIndex, onClose, onNavigate 
         </button>
       )}
 
-      {/* Content */}
       <div className="h-full flex flex-col md:flex-row items-center justify-center p-8 md:p-12 gap-8">
-        {/* Image area */}
         <div className="flex-1 flex items-center justify-center h-full">
           {photo.has_file ? (
             <img
@@ -116,16 +96,13 @@ export default function PhotoViewer({ photos, currentIndex, onClose, onNavigate 
           )}
         </div>
 
-        {/* EXIF panel */}
         <div className="w-full md:w-80 shrink-0 animate-slide-up">
           <div className="bg-warm rounded-[24px] p-7 space-y-5">
-            {/* File name */}
             <div>
               <p className="font-mono text-[10px] text-stone uppercase tracking-[0.15em]">file</p>
               <p className="font-sans text-sm font-medium mt-1 truncate">{photo.file_name}</p>
             </div>
 
-            {/* Lens — hero element */}
             {photo.lens && (
               <div className="py-3 border-y border-sand">
                 <p className="font-mono text-[10px] text-stone uppercase tracking-[0.15em]">lens</p>
@@ -133,29 +110,15 @@ export default function PhotoViewer({ photos, currentIndex, onClose, onNavigate 
               </div>
             )}
 
-            {/* EXIF grid */}
             <div className="grid grid-cols-2 gap-x-6 gap-y-4">
-              {photo.focal_length != null && (
-                <ExifStat label="focal" value={`${photo.focal_length}mm`} />
-              )}
-              {photo.aperture != null && (
-                <ExifStat label="aperture" value={`f/${photo.aperture}`} />
-              )}
-              {photo.shutter_speed && (
-                <ExifStat label="shutter" value={photo.shutter_speed} />
-              )}
-              {photo.iso != null && (
-                <ExifStat label="iso" value={String(photo.iso)} />
-              )}
-              {photo.width && photo.height && (
-                <ExifStat label="size" value={`${photo.width}×${photo.height}`} />
-              )}
-              {photo.file_format && (
-                <ExifStat label="format" value={photo.file_format} />
-              )}
+              {photo.focal_length != null && <ExifStat label="focal" value={`${photo.focal_length}mm`} />}
+              {photo.aperture != null && <ExifStat label="aperture" value={`f/${photo.aperture}`} />}
+              {photo.shutter_speed && <ExifStat label="shutter" value={photo.shutter_speed} />}
+              {photo.iso != null && <ExifStat label="iso" value={String(photo.iso)} />}
+              {photo.width && photo.height && <ExifStat label="size" value={`${photo.width}×${photo.height}`} />}
+              {photo.file_format && <ExifStat label="format" value={photo.file_format} />}
             </div>
 
-            {/* Camera */}
             {photo.camera && (
               <div>
                 <p className="font-mono text-[10px] text-stone uppercase tracking-[0.15em]">camera</p>
@@ -163,30 +126,20 @@ export default function PhotoViewer({ photos, currentIndex, onClose, onNavigate 
               </div>
             )}
 
-            {/* Date */}
             {photo.date_taken && (
               <div>
                 <p className="font-mono text-[10px] text-stone uppercase tracking-[0.15em]">taken</p>
                 <p className="font-sans text-sm mt-1">
                   {new Date(photo.date_taken).toLocaleDateString("en-US", {
-                    year: "numeric",
-                    month: "short",
-                    day: "numeric",
-                    hour: "2-digit",
-                    minute: "2-digit",
+                    year: "numeric", month: "short", day: "numeric", hour: "2-digit", minute: "2-digit",
                   })}
                 </p>
               </div>
             )}
 
-            {/* Counter */}
             <div className="pt-4 border-t border-sand flex justify-between items-center">
-              <span className="font-mono text-xs text-stone tabular-nums">
-                {currentIndex + 1} / {photos.length}
-              </span>
-              <span className="font-mono text-[9px] text-sand uppercase tracking-wider">
-                keys / swipe
-              </span>
+              <span className="font-mono text-xs text-stone tabular-nums">{currentIndex + 1} / {photos.length}</span>
+              <span className="font-mono text-[9px] text-sand uppercase tracking-wider">keys / swipe</span>
             </div>
           </div>
         </div>

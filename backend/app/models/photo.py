@@ -10,17 +10,18 @@ class Photo(SQLModel, table=True):
     file_path: str = Field(index=True, unique=True)
     file_name: str
     file_format: str
+    has_file: bool = Field(default=True)
     camera_make: Optional[str] = None
-    camera_model: Optional[str] = None
+    camera_model: Optional[str] = Field(default=None, index=True)
     lens_make: Optional[str] = None
-    lens_model: Optional[str] = None
-    focal_length: Optional[float] = None
+    lens_model: Optional[str] = Field(default=None, index=True)
+    focal_length: Optional[float] = Field(default=None, index=True)
     focal_length_35mm: Optional[float] = None
-    aperture: Optional[float] = None
+    aperture: Optional[float] = Field(default=None, index=True)
     shutter_speed: Optional[str] = None
     shutter_speed_sec: Optional[float] = None
-    iso: Optional[int] = None
-    date_taken: Optional[datetime] = None
+    iso: Optional[int] = Field(default=None, index=True)
+    date_taken: Optional[datetime] = Field(default=None, index=True)
     gps_lat: Optional[float] = None
     gps_lon: Optional[float] = None
     image_width: Optional[int] = None
