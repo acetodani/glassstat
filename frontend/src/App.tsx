@@ -3,6 +3,7 @@ import Sidebar from "./components/layout/Sidebar";
 import Header from "./components/layout/Header";
 import Dashboard from "./components/Dashboard";
 import IngestPage from "./components/ingestion/IngestPage";
+import WrappedPage from "./components/wrapped/WrappedPage";
 
 export default function App() {
   return (
@@ -14,6 +15,7 @@ export default function App() {
           <Routes>
             <Route path="/" element={<Dashboard />} />
             <Route path="/ingest" element={<IngestPage />} />
+            <Route path="/wrapped" element={<WrappedPage />} />
           </Routes>
         </main>
       </div>

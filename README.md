@@ -1,24 +1,32 @@
-# GlassStat
+<p align="center">
+  <img src="docs/images/hero-banner.svg" alt="GlassStat" width="100%"/>
+</p>
 
-**Spotify Wrapped for your camera gear.** Scan your photo library and discover how you actually shoot — which lenses you reach for, your aperture habits, when you're most creative, and whether that 70-200 is earning its keep.
+<p align="center">
+  <strong>Spotify Wrapped for your camera gear.</strong><br/>
+  Scan your photo library and discover how you actually shoot — which lenses you reach for, your aperture habits, when you're most creative, and whether that 70-200 is earning its keep.
+</p>
 
-![License](https://img.shields.io/badge/license-MIT-blue)
-![Python](https://img.shields.io/badge/python-3.12-green)
-![React](https://img.shields.io/badge/react-18-blue)
+<p align="center">
+  <img src="https://img.shields.io/badge/license-MIT-blue" alt="License"/>
+  <img src="https://img.shields.io/badge/python-3.12-green" alt="Python"/>
+  <img src="https://img.shields.io/badge/react-18-blue" alt="React"/>
+  <img src="https://img.shields.io/badge/formats-400+-orange" alt="Formats"/>
+</p>
 
 ---
 
-## What You Get
+## Dashboard Preview
 
-- **Focal Length Heatmap** — See which focal lengths you gravitate toward
-- **Aperture Sweet Spot** — Per-lens breakdown of your f-stop habits
-- **Shooting Timeline** — When are you most active? Seasonal patterns emerge
-- **Time-of-Day Heatmap** — Golden hour addict or midnight street shooter?
-- **Gear Usage Rankings** — Which lenses get the most work
-- **ISO Patterns** — How much noise are you tolerating?
-- **GPS Shot Map** — Plot every geotagged photo on a map
-- **Gear ROI** — Cost-per-shot analysis (add your purchase prices)
-- **Photographer Archetypes** — "Bokeh Addict", "Pixel Peeper", "Street Hunter" — which one are you?
+<p align="center">
+  <img src="docs/images/dashboard-preview.svg" alt="GlassStat Dashboard" width="100%"/>
+</p>
+
+## Features
+
+<p align="center">
+  <img src="docs/images/features-grid.svg" alt="Features" width="100%"/>
+</p>
 
 ## Quick Start
 
@@ -106,13 +114,13 @@ Works with Canon, Nikon, Sony, Fuji, Olympus, Panasonic, Leica, Hasselblad, DJI 
 - [ ] Export stats as PDF
 - [ ] Dark/light mode toggle
 
-## Contributing
-
-PRs welcome. See [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines.
-
 ## Privacy
 
 Your photos never leave your machine. GlassStat only reads metadata — it doesn't copy, upload, or modify your files. The SQLite database stores EXIF data only (no thumbnails, no pixel data).
+
+## Contributing
+
+PRs welcome. See [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines.
 
 ## License
 

@@ -1,8 +1,9 @@
 import { NavLink } from "react-router-dom";
-import { BarChart3, Upload, Camera } from "lucide-react";
+import { BarChart3, Upload, Camera, Sparkles } from "lucide-react";
 
 const navItems = [
   { to: "/", icon: BarChart3, label: "Dashboard" },
+  { to: "/wrapped", icon: Sparkles, label: "Wrapped" },
   { to: "/ingest", icon: Upload, label: "Import" },
 ];
 

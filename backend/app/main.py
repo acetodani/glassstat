@@ -5,7 +5,7 @@ from fastapi.middleware.cors import CORSMiddleware
 
 from app.core.config import settings
 from app.db.database import init_db
-from app.api.routes import ingest, analytics, gear
+from app.api.routes import ingest, analytics, gear, wrapped
 from app.demo.seed import generate_demo_data
 
 
@@ -33,6 +33,7 @@ app.add_middleware(
 app.include_router(ingest.router)
 app.include_router(analytics.router)
 app.include_router(gear.router)
+app.include_router(wrapped.router)
 
 
 @app.get("/api/health")
