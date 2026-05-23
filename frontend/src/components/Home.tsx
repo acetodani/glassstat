@@ -52,6 +52,9 @@ export default function Home() {
           subtitle={hasPhotos ? "Add more" : "Get started"}
           accent={!hasPhotos}
         />
+        {!hasPhotos && (
+          <NavCard onClick={() => navigate("/demo")} title="Demo" subtitle="See an example" />
+        )}
       </div>
 
       {/* How it works — only when empty */}

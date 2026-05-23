@@ -5,6 +5,7 @@ import Dashboard from "./components/Dashboard";
 import IngestPage from "./components/ingestion/IngestPage";
 import WrappedPage from "./components/wrapped/WrappedPage";
 import GalleryPage from "./components/gallery/GalleryPage";
+import DemoPage from "./components/DemoPage";
 
 export default function App() {
   return (
@@ -17,6 +18,7 @@ export default function App() {
           <Route path="/gallery" element={<GalleryPage />} />
           <Route path="/wrapped" element={<WrappedPage />} />
           <Route path="/ingest" element={<IngestPage />} />
+          <Route path="/demo" element={<DemoPage />} />
         </Routes>
       </main>
     </div>

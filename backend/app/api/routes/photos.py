@@ -21,7 +21,15 @@ def list_photos(
     session: Session = Depends(get_session),
 ):
     offset = (page - 1) * per_page
-    query = select(Photo).order_by(col(Photo.date_taken).desc())
+
+    # Use raw select for speed — avoid ORM overhead
+    columns = [
+        Photo.id, Photo.file_name, Photo.file_format, Photo.camera_model,
+        Photo.lens_model, Photo.focal_length, Photo.aperture,
+        Photo.shutter_speed, Photo.iso, Photo.date_taken,
+        Photo.image_width, Photo.image_height, Photo.has_file,
+    ]
+    query = select(*columns).order_by(col(Photo.date_taken).desc())
     count_query = select(func.count(Photo.id))
 
     if lens:
@@ -29,26 +37,26 @@ def list_photos(
         count_query = count_query.where(Photo.lens_model == lens)
 
     total = session.exec(count_query).one()
-    photos = session.exec(query.offset(offset).limit(per_page)).all()
+    rows = session.exec(query.offset(offset).limit(per_page)).all()
 
     return {
         "photos": [
             {
-                "id": p.id,
-                "file_name": p.file_name,
-                "file_format": p.file_format,
-                "camera": p.camera_model,
-                "lens": p.lens_model,
-                "focal_length": p.focal_length,
-                "aperture": p.aperture,
-                "shutter_speed": p.shutter_speed,
-                "iso": p.iso,
-                "date_taken": str(p.date_taken) if p.date_taken else None,
-                "width": p.image_width,
-                "height": p.image_height,
-                "has_file": p.has_file,
+                "id": r[0],
+                "file_name": r[1],
+                "file_format": r[2],
+                "camera": r[3],
+                "lens": r[4],
+                "focal_length": r[5],
+                "aperture": r[6],
+                "shutter_speed": r[7],
+                "iso": r[8],
+                "date_taken": str(r[9]) if r[9] else None,
+                "width": r[10],
+                "height": r[11],
+                "has_file": r[12],
             }
-            for p in photos
+            for r in rows
         ],
         "page": page,
         "per_page": per_page,

@@ -17,18 +17,17 @@ export default function GalleryPage() {
 
   const observerRef = useRef<HTMLDivElement>(null);
 
-  // Initial load + auto-refresh after upload
+  // Initial load — small first page for instant render
   useEffect(() => {
     setPhotos([]);
     setPage(1);
     setLoading(true);
-    api.getPhotos(1, 50, lensFilter).then((data) => {
+    api.getPhotos(1, 24, lensFilter).then((data) => {
       setPhotos(data.photos);
       setTotalPages(data.total_pages);
       setTotal(data.total);
       setLoading(false);
     });
-    // Clear refresh flag
     sessionStorage.removeItem("glassstat_refresh");
   }, [lensFilter]);
 
@@ -37,7 +36,7 @@ export default function GalleryPage() {
     if (loadingMore || page >= totalPages) return;
     setLoadingMore(true);
     const nextPage = page + 1;
-    api.getPhotos(nextPage, 50, lensFilter).then((data) => {
+    api.getPhotos(nextPage, 24, lensFilter).then((data) => {
       setPhotos((prev) => [...prev, ...data.photos]);
       setPage(nextPage);
       setLoadingMore(false);
