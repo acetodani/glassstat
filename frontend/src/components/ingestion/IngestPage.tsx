@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import FolderScan from "./FolderScan";
 import DragDropUpload from "./DragDropUpload";
 import ScanProgress from "./ScanProgress";
@@ -7,6 +8,7 @@ import { ScanStatus } from "../../types";
 export default function IngestPage() {
   const [scanning, setScanning] = useState(false);
   const [status, setStatus] = useState<ScanStatus | null>(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (!scanning) return;
@@ -17,13 +19,16 @@ export default function IngestPage() {
         setStatus(data);
         if (!data.is_scanning && data.processed > 0) {
           setScanning(false);
+          // Invalidate dashboard cache
+          sessionStorage.setItem("glassstat_refresh", Date.now().toString());
+          setTimeout(() => navigate("/gallery"), 1200);
         }
       } catch {
         // ignore
       }
     }, 400);
     return () => clearInterval(interval);
-  }, [scanning]);
+  }, [scanning, navigate]);
 
   if (scanning && status) {
     return <ScanProgress status={status} />;

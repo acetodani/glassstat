@@ -17,7 +17,7 @@ export default function GalleryPage() {
 
   const observerRef = useRef<HTMLDivElement>(null);
 
-  // Initial load
+  // Initial load + auto-refresh after upload
   useEffect(() => {
     setPhotos([]);
     setPage(1);
@@ -28,6 +28,8 @@ export default function GalleryPage() {
       setTotal(data.total);
       setLoading(false);
     });
+    // Clear refresh flag
+    sessionStorage.removeItem("glassstat_refresh");
   }, [lensFilter]);
 
   // Infinite scroll - load more
@@ -93,7 +95,8 @@ export default function GalleryPage() {
             <button
               key={`${photo.id}-${i}`}
               onClick={() => setViewerIndex(i)}
-              className="group relative aspect-[3/2] bg-warm rounded-2xl overflow-hidden hover:scale-[1.02] transition-transform duration-200"
+              className="group relative aspect-[3/2] bg-warm rounded-2xl overflow-hidden hover:scale-[1.02] transition-transform duration-200 animate-pop-in"
+              style={{ animationDelay: `${(i % 50) * 30}ms` }}
             >
               {photo.has_file ? (
                 <img
