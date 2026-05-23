@@ -25,16 +25,32 @@ export default function DragDropUpload({ onUploadStart }: { onUploadStart: () =>
     }
   };
 
+  const ALLOWED_EXT = new Set([
+    ".jpg", ".jpeg", ".png", ".tiff", ".tif", ".webp",
+    ".cr2", ".cr3", ".nef", ".arw", ".orf", ".rw2",
+    ".raf", ".dng", ".heif", ".heic", ".avif",
+  ]);
+
   const startUpload = async (fileList: FileList) => {
     const fileArray = Array.from(fileList);
     const MAX_SIZE = 50 * 1024 * 1024;
 
-    const valid = fileArray.filter((f) => f.size <= MAX_SIZE);
-    const tooLarge = fileArray.filter((f) => f.size > MAX_SIZE);
+    const validExt = fileArray.filter((f) => {
+      const ext = "." + f.name.split(".").pop()?.toLowerCase();
+      return ALLOWED_EXT.has(ext);
+    });
+    const invalidExt = fileArray.filter((f) => {
+      const ext = "." + f.name.split(".").pop()?.toLowerCase();
+      return !ALLOWED_EXT.has(ext);
+    });
+
+    const valid = validExt.filter((f) => f.size <= MAX_SIZE);
+    const tooLarge = validExt.filter((f) => f.size > MAX_SIZE);
 
     const progress: FileProgress[] = [
       ...valid.map((f) => ({ name: f.name, size: f.size, status: "pending" as const })),
       ...tooLarge.map((f) => ({ name: f.name, size: f.size, status: "error" as const })),
+      ...invalidExt.map((f) => ({ name: f.name, size: f.size, status: "error" as const })),
     ];
     setFiles(progress);
     setUploading(true);

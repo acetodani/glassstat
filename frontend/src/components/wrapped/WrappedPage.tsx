@@ -13,6 +13,9 @@ interface BestPhoto {
   shutter_speed?: string;
   date_taken?: string;
   camera?: string;
+  score?: number;
+  subject?: string;
+  why?: string;
 }
 
 export default function WrappedPage() {
@@ -75,22 +78,37 @@ export default function WrappedPage() {
               alt={bestPhoto.file_name}
               className="w-full aspect-[3/2] object-cover"
             />
-            <div className="p-5 flex items-baseline justify-between">
-              <div>
-                <p className="font-display text-lg">{bestPhoto.lens || "Unknown lens"}</p>
-                <p className="font-mono text-xs text-stone mt-0.5">
-                  {[
-                    bestPhoto.focal_length && `${bestPhoto.focal_length}mm`,
-                    bestPhoto.aperture && `f/${bestPhoto.aperture}`,
-                    bestPhoto.iso && `ISO ${bestPhoto.iso}`,
-                    bestPhoto.shutter_speed,
-                  ].filter(Boolean).join(" · ")}
-                </p>
+            <div className="p-5">
+              <div className="flex items-baseline justify-between">
+                <div>
+                  <p className="font-display text-lg">{bestPhoto.lens || "Unknown lens"}</p>
+                  <p className="font-mono text-xs text-stone mt-0.5">
+                    {[
+                      bestPhoto.focal_length && `${bestPhoto.focal_length}mm`,
+                      bestPhoto.aperture && `f/${bestPhoto.aperture}`,
+                      bestPhoto.iso && `ISO ${bestPhoto.iso}`,
+                      bestPhoto.shutter_speed,
+                    ].filter(Boolean).join(" · ")}
+                  </p>
+                </div>
+                {bestPhoto.score && (
+                  <span className="font-mono text-sm text-accent font-medium">{bestPhoto.score}/100</span>
+                )}
               </div>
-              {bestPhoto.date_taken && (
-                <span className="font-mono text-[10px] text-sand">
-                  {new Date(bestPhoto.date_taken).toLocaleDateString("en-US", { month: "short", day: "numeric" })}
-                </span>
+              {bestPhoto.subject && (
+                <div className="mt-3 flex items-center gap-2">
+                  <span className="glass-subtle rounded-full px-3 py-1 font-mono text-[10px] text-ink capitalize">
+                    {bestPhoto.subject}
+                  </span>
+                  {bestPhoto.date_taken && (
+                    <span className="font-mono text-[10px] text-sand">
+                      {new Date(bestPhoto.date_taken).toLocaleDateString("en-US", { month: "short", day: "numeric" })}
+                    </span>
+                  )}
+                </div>
+              )}
+              {bestPhoto.why && (
+                <p className="font-mono text-[10px] text-stone mt-2">{bestPhoto.why}</p>
               )}
             </div>
           </div>

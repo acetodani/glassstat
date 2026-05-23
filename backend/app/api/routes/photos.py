@@ -103,4 +103,54 @@ def get_photo_file(photo_id: int, session: Session = Depends(get_session)):
         raise HTTPException(404, "File not found on disk")
 
     media_type = mimetypes.guess_type(str(path))[0] or "application/octet-stream"
-    return FileResponse(path, media_type=media_type)
+    return FileResponse(
+        path,
+        media_type=media_type,
+        headers={"Cache-Control": "public, max-age=86400, immutable"},
+    )
+
+
+@router.get("/{photo_id}/thumb")
+def get_photo_thumb(photo_id: int, session: Session = Depends(get_session)):
+    """Serve a thumbnail. Falls back to full file with aggressive caching."""
+    photo = session.get(Photo, photo_id)
+    if not photo:
+        raise HTTPException(404, "Photo not found")
+
+    path = Path(photo.file_path)
+    if not path.exists():
+        raise HTTPException(404, "File not found on disk")
+
+    # Check for cached thumbnail
+    thumb_dir = path.parent / ".thumbs"
+    thumb_path = thumb_dir / f"{path.stem}_thumb.jpg"
+
+    if thumb_path.exists():
+        return FileResponse(
+            thumb_path,
+            media_type="image/jpeg",
+            headers={"Cache-Control": "public, max-age=604800, immutable"},
+        )
+
+    # Generate thumbnail if PIL available
+    try:
+        from PIL import Image
+        thumb_dir.mkdir(exist_ok=True)
+        img = Image.open(path)
+        img.thumbnail((400, 400), Image.LANCZOS)
+        if img.mode != "RGB":
+            img = img.convert("RGB")
+        img.save(thumb_path, "JPEG", quality=75)
+        return FileResponse(
+            thumb_path,
+            media_type="image/jpeg",
+            headers={"Cache-Control": "public, max-age=604800, immutable"},
+        )
+    except Exception:
+        # Fallback: serve full file with cache headers
+        media_type = mimetypes.guess_type(str(path))[0] or "application/octet-stream"
+        return FileResponse(
+            path,
+            media_type=media_type,
+            headers={"Cache-Control": "public, max-age=86400"},
+        )

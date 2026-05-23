@@ -99,7 +99,7 @@ export default function GalleryPage() {
             >
               {photo.has_file ? (
                 <img
-                  src={`/api/photos/${photo.id}/file`}
+                  src={`/api/photos/${photo.id}/thumb`}
                   alt={photo.file_name}
                   className="w-full h-full object-cover"
                   loading="lazy"

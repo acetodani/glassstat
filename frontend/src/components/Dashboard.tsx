@@ -68,7 +68,7 @@ export default function Dashboard() {
                 style={{ animationDelay: `${i * 40}ms` }}
               >
                 {photo.has_file ? (
-                  <img src={`/api/photos/${photo.id}/file`} alt="" className="w-full h-full object-cover" loading="lazy" />
+                  <img src={`/api/photos/${photo.id}/thumb`} alt="" className="w-full h-full object-cover" loading="lazy" />
                 ) : (
                   <div className="w-full h-full flex items-center justify-center">
                     <span className="font-mono text-[8px] text-stone">{photo.focal_length ? `${photo.focal_length}mm` : "—"}</span>

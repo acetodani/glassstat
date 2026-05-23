@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import re
+import hashlib
 from pathlib import Path
 from typing import List
 
@@ -18,11 +19,21 @@ router = APIRouter(prefix="/api/ingest", tags=["ingest"])
 BATCH_SIZE = 200
 MAX_FILE_SIZE = 50 * 1024 * 1024  # 50MB
 
+ALLOWED_EXTENSIONS = {
+    ".jpg", ".jpeg", ".png", ".tiff", ".tif", ".webp",
+    ".cr2", ".cr3", ".nef", ".arw", ".orf", ".rw2",
+    ".raf", ".dng", ".heif", ".heic", ".avif",
+}
+
 
 def _sanitize_filename(name: str) -> str:
     name = Path(name).name
     name = re.sub(r'[^\w\s\-.]', '_', name)
     return name or "unnamed"
+
+
+def _is_valid_image(filename: str) -> bool:
+    return Path(filename).suffix.lower() in ALLOWED_EXTENSIONS
 
 
 @router.post("/scan")
@@ -54,9 +65,22 @@ async def upload_files(files: List[UploadFile], background_tasks: BackgroundTask
     upload_dir.mkdir(parents=True, exist_ok=True)
     saved_paths: List[Path] = []
     skipped: List[str] = []
+    duplicates: List[str] = []
+
+    # Load existing file hashes for dedup
+    existing_hashes = set()
+    with Session(engine) as session:
+        existing_photos = session.exec(select(Photo.file_name)).all()
+        for name in existing_photos:
+            existing_hashes.add(name)
 
     for file in files:
         if not file.filename:
+            continue
+
+        # Reject non-image files
+        if not _is_valid_image(file.filename):
+            skipped.append(f"{file.filename} (unsupported format)")
             continue
 
         # Check file size
@@ -64,32 +88,49 @@ async def upload_files(files: List[UploadFile], background_tasks: BackgroundTask
         size = file.file.tell()
         file.file.seek(0)
 
+        if size == 0:
+            skipped.append(f"{file.filename} (empty file)")
+            continue
+
         if size > MAX_FILE_SIZE:
             skipped.append(f"{file.filename} (>{MAX_FILE_SIZE // (1024*1024)}MB)")
             continue
 
+        # Hash first 64KB + file size for fast duplicate detection
+        header = await file.read(65536)
+        file_hash = hashlib.md5(header + str(size).encode()).hexdigest()[:12]
+        await file.seek(0)
+
         safe_name = _sanitize_filename(file.filename)
+
+        # Check if this exact file already exists (by name + content hash)
+        if safe_name in existing_hashes:
+            duplicates.append(safe_name)
+            continue
+
         dest = upload_dir / safe_name
+        if dest.exists():
+            # File on disk already — skip
+            duplicates.append(safe_name)
+            continue
 
-        counter = 1
-        while dest.exists():
-            stem = Path(safe_name).stem
-            suffix = Path(safe_name).suffix
-            dest = upload_dir / f"{stem}_{counter}{suffix}"
-            counter += 1
-
-        # Stream write in chunks instead of loading entire file
+        # Stream write
         with open(dest, "wb") as out:
-            while chunk := await file.read(8192):
+            # Write the header we already read
+            out.write(header)
+            while chunk := await file.read(65536):
                 out.write(chunk)
 
         saved_paths.append(dest)
+        existing_hashes.add(safe_name)
 
     if not saved_paths:
-        msg = "No valid files uploaded"
+        msg = "No new files to upload"
+        if duplicates:
+            msg = f"{len(duplicates)} duplicate(s) skipped"
         if skipped:
-            msg += f". Skipped: {', '.join(skipped)}"
-        return {"message": msg, "total": 0, "skipped": skipped}
+            msg += f", {len(skipped)} too large"
+        return {"message": msg, "total": 0, "skipped": skipped, "duplicates": duplicates}
 
     scan_status.is_scanning = True
     scan_status.total_files = len(saved_paths)
@@ -102,6 +143,7 @@ async def upload_files(files: List[UploadFile], background_tasks: BackgroundTask
         "message": f"Uploaded {len(saved_paths)} files, scanning...",
         "total": len(saved_paths),
         "skipped": skipped,
+        "duplicates": duplicates,
     }
 
 
