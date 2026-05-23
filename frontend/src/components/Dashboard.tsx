@@ -1,7 +1,10 @@
 import { api, DashboardData } from "../api/client";
 import { useFetch } from "../hooks/useAnalytics";
 import { useNavigate } from "react-router-dom";
-import { BarChart, Bar, XAxis, ResponsiveContainer, Cell, AreaChart, Area } from "recharts";
+import {
+  BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer, Cell,
+  AreaChart, Area, CartesianGrid,
+} from "recharts";
 
 export default function Dashboard() {
   const { data, loading } = useFetch<DashboardData>(api.getDashboard, "dashboard");
@@ -84,19 +87,45 @@ export default function Dashboard() {
       {focal_length.length > 0 && (
         <section>
           <SectionHead title="Focal Length" />
-          <div className="glass rounded-[28px] p-8 mt-4">
-            <ResponsiveContainer width="100%" height={240}>
-              <BarChart data={focal_length.map((d) => ({ name: `${d.focal_length}`, shots: d.count, pct: d.count / maxFL }))}>
+          <div className="glass rounded-[28px] p-6 md:p-8 mt-4">
+            <ResponsiveContainer width="100%" height={280}>
+              <BarChart data={focal_length.map((d) => ({ name: `${d.focal_length}mm`, shots: d.count, pct: d.count / maxFL }))} barCategoryGap="18%">
+                <CartesianGrid vertical={false} stroke="rgba(0,0,0,0.04)" />
                 <XAxis
                   dataKey="name"
-                  tick={{ fill: "#A39E96", fontSize: 11, fontFamily: "JetBrains Mono" }}
+                  tick={{ fill: "#6B7280", fontSize: 11, fontFamily: "JetBrains Mono" }}
                   axisLine={false}
                   tickLine={false}
-                  tickFormatter={(v: string) => `${v}mm`}
                 />
-                <Bar dataKey="shots" radius={[8, 8, 4, 4]}>
+                <YAxis
+                  tick={{ fill: "#9CA3AF", fontSize: 10, fontFamily: "JetBrains Mono" }}
+                  axisLine={false}
+                  tickLine={false}
+                  width={40}
+                />
+                <Tooltip
+                  cursor={{ fill: "rgba(99, 102, 241, 0.06)", radius: 8 }}
+                  contentStyle={{
+                    background: "rgba(255,255,255,0.85)",
+                    backdropFilter: "blur(12px)",
+                    border: "1px solid rgba(255,255,255,0.8)",
+                    borderRadius: 12,
+                    boxShadow: "0 4px 24px rgba(0,0,0,0.08)",
+                    fontFamily: "JetBrains Mono",
+                    fontSize: 12,
+                  }}
+                  formatter={(value: number) => [`${value.toLocaleString()} shots`, ""]}
+                />
+                <Bar dataKey="shots" radius={[6, 6, 2, 2]} animationDuration={800}>
                   {focal_length.map((d, i) => (
-                    <Cell key={i} fill={d.count / maxFL > 0.7 ? "#E8553D" : d.count / maxFL > 0.4 ? "#1A1A1A" : "#D4CFC7"} />
+                    <Cell
+                      key={i}
+                      fill={
+                        d.count / maxFL > 0.7 ? "#6366F1" :
+                        d.count / maxFL > 0.4 ? "#818CF8" :
+                        d.count / maxFL > 0.2 ? "#A5B4FC" : "#E0E7FF"
+                      }
+                    />
                   ))}
                 </Bar>
               </BarChart>
@@ -109,22 +138,51 @@ export default function Dashboard() {
       {activity.length > 0 && (
         <section>
           <SectionHead title="Activity" />
-          <div className="glass rounded-[28px] p-8 mt-4">
-            <ResponsiveContainer width="100%" height={140}>
+          <div className="glass rounded-[28px] p-6 md:p-8 mt-4">
+            <ResponsiveContainer width="100%" height={180}>
               <AreaChart data={activity}>
                 <defs>
                   <linearGradient id="actGrad" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="0%" stopColor="#E8553D" stopOpacity={0.15} />
-                    <stop offset="100%" stopColor="#E8553D" stopOpacity={0} />
+                    <stop offset="0%" stopColor="#6366F1" stopOpacity={0.2} />
+                    <stop offset="100%" stopColor="#6366F1" stopOpacity={0} />
                   </linearGradient>
                 </defs>
+                <CartesianGrid vertical={false} stroke="rgba(0,0,0,0.04)" />
                 <XAxis
                   dataKey="period"
-                  tick={{ fill: "#A39E96", fontSize: 10, fontFamily: "JetBrains Mono" }}
+                  tick={{ fill: "#9CA3AF", fontSize: 10, fontFamily: "JetBrains Mono" }}
                   axisLine={false}
                   tickLine={false}
                 />
-                <Area type="monotone" dataKey="count" stroke="#E8553D" strokeWidth={2} fill="url(#actGrad)" />
+                <YAxis
+                  tick={{ fill: "#9CA3AF", fontSize: 10, fontFamily: "JetBrains Mono" }}
+                  axisLine={false}
+                  tickLine={false}
+                  width={35}
+                />
+                <Tooltip
+                  cursor={{ stroke: "#6366F1", strokeWidth: 1, strokeDasharray: "4 4" }}
+                  contentStyle={{
+                    background: "rgba(255,255,255,0.85)",
+                    backdropFilter: "blur(12px)",
+                    border: "1px solid rgba(255,255,255,0.8)",
+                    borderRadius: 12,
+                    boxShadow: "0 4px 24px rgba(0,0,0,0.08)",
+                    fontFamily: "JetBrains Mono",
+                    fontSize: 12,
+                  }}
+                  formatter={(value: number) => [`${value.toLocaleString()} shots`, ""]}
+                />
+                <Area
+                  type="monotone"
+                  dataKey="count"
+                  stroke="#6366F1"
+                  strokeWidth={2.5}
+                  fill="url(#actGrad)"
+                  dot={{ r: 3, fill: "#6366F1", strokeWidth: 0 }}
+                  activeDot={{ r: 5, fill: "#6366F1", stroke: "#fff", strokeWidth: 2 }}
+                  animationDuration={1000}
+                />
               </AreaChart>
             </ResponsiveContainer>
           </div>
@@ -135,9 +193,10 @@ export default function Dashboard() {
       {top_gear.length > 0 && (
         <section>
           <SectionHead title="Your Glass" />
-          <div className="glass rounded-[28px] p-8 mt-4 space-y-5">
+          <div className="glass rounded-[28px] p-6 md:p-8 mt-4 space-y-5">
             {top_gear.map((item, i) => {
               const maxGear = top_gear[0].count;
+              const colors = ["#6366F1", "#818CF8", "#A5B4FC", "#C7D2FE", "#E0E7FF"];
               return (
                 <button
                   key={item.lens}
@@ -147,14 +206,14 @@ export default function Dashboard() {
                   <div className="flex items-baseline justify-between mb-2">
                     <div className="flex items-baseline gap-3">
                       <span className="font-mono text-xs text-stone">{String(i + 1).padStart(2, "0")}</span>
-                      <span className="text-sm font-medium group-hover:text-accent transition-colors">{item.lens}</span>
+                      <span className="text-sm font-medium group-hover:text-indigo-500 transition-colors">{item.lens}</span>
                     </div>
                     <span className="font-mono text-sm tabular-nums">{item.count.toLocaleString()}</span>
                   </div>
-                  <div className="w-full h-3 bg-white/50 rounded-full overflow-hidden">
+                  <div className="w-full h-3 bg-indigo-50 rounded-full overflow-hidden">
                     <div
                       className="h-full rounded-full transition-all duration-700"
-                      style={{ width: `${(item.count / maxGear) * 100}%`, backgroundColor: i === 0 ? "#E8553D" : "#1A1A1A" }}
+                      style={{ width: `${(item.count / maxGear) * 100}%`, backgroundColor: colors[i] || colors[4] }}
                     />
                   </div>
                 </button>
@@ -170,7 +229,7 @@ export default function Dashboard() {
 function StatCard({ value, label, accent }: { value: string; label: string; accent?: boolean }) {
   return (
     <div className="glass rounded-3xl p-6 hover:shadow-md transition-shadow group">
-      <p className={`font-display text-4xl md:text-5xl tracking-tight transition-colors ${accent ? "text-accent" : "text-ink group-hover:text-accent"}`}>
+      <p className={`font-display text-4xl md:text-5xl tracking-tight transition-colors ${accent ? "text-indigo-500" : "text-ink group-hover:text-indigo-500"}`}>
         {value}
       </p>
       <p className="font-mono text-[10px] text-stone uppercase tracking-[0.15em] mt-2">{label}</p>

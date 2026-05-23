@@ -103,6 +103,7 @@ export default function GalleryPage() {
                   alt={photo.file_name}
                   className="w-full h-full object-cover"
                   loading="lazy"
+                  style={{ imageOrientation: "from-image" }}
                 />
               ) : (
                 <div className="w-full h-full flex flex-col items-center justify-center gap-1 p-3">

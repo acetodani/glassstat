@@ -134,13 +134,15 @@ def get_photo_thumb(photo_id: int, session: Session = Depends(get_session)):
 
     # Generate thumbnail if PIL available
     try:
-        from PIL import Image
+        from PIL import Image, ImageOps
         thumb_dir.mkdir(exist_ok=True)
         img = Image.open(path)
+        # Fix EXIF orientation (handles vertical photos)
+        img = ImageOps.exif_transpose(img)
         img.thumbnail((400, 400), Image.LANCZOS)
         if img.mode != "RGB":
             img = img.convert("RGB")
-        img.save(thumb_path, "JPEG", quality=75)
+        img.save(thumb_path, "JPEG", quality=80)
         return FileResponse(
             thumb_path,
             media_type="image/jpeg",
