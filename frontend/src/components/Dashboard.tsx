@@ -25,7 +25,7 @@ export default function Dashboard() {
         <p className="text-stone">Upload some photos to see your stats here.</p>
         <button
           onClick={() => navigate("/ingest")}
-          className="glass rounded-2xl px-6 py-3 text-sm font-medium hover:shadow-md transition-all ring-2 ring-accent/30 text-accent"
+          className="glass rounded-2xl px-6 py-3 text-sm font-medium hover:shadow-md transition-all text-ink"
         >
           Import photos
         </button>
@@ -58,7 +58,7 @@ export default function Dashboard() {
         <section>
           <div className="flex items-baseline justify-between mb-4">
             <SectionHead title="Recent Uploads" />
-            <button onClick={() => navigate("/gallery")} className="font-mono text-xs text-stone hover:text-accent transition-colors">
+            <button onClick={() => navigate("/gallery")} className="font-mono text-xs text-stone hover:text-ink transition-colors">
               view all →
             </button>
           </div>
@@ -71,7 +71,7 @@ export default function Dashboard() {
                 style={{ animationDelay: `${i * 40}ms` }}
               >
                 {photo.has_file ? (
-                  <img src={`/api/photos/${photo.id}/thumb`} alt="" className="w-full h-full object-cover" loading="lazy" />
+                  <img src={`/api/photos/${photo.id}/thumb`} alt="" className="w-full h-full object-cover" loading="lazy" style={{ imageOrientation: "from-image" }} />
                 ) : (
                   <div className="w-full h-full flex items-center justify-center">
                     <span className="font-mono text-[8px] text-stone">{photo.focal_length ? `${photo.focal_length}mm` : "—"}</span>
@@ -90,7 +90,7 @@ export default function Dashboard() {
           <div className="glass rounded-[28px] p-6 md:p-8 mt-4">
             <ResponsiveContainer width="100%" height={280}>
               <BarChart data={focal_length.map((d) => ({ name: `${d.focal_length}mm`, shots: d.count, pct: d.count / maxFL }))} barCategoryGap="18%">
-                <CartesianGrid vertical={false} stroke="rgba(0,0,0,0.04)" />
+                <CartesianGrid vertical={false} stroke="rgba(0,0,0,0.03)" />
                 <XAxis
                   dataKey="name"
                   tick={{ fill: "#6B7280", fontSize: 11, fontFamily: "JetBrains Mono" }}
@@ -104,13 +104,13 @@ export default function Dashboard() {
                   width={40}
                 />
                 <Tooltip
-                  cursor={{ fill: "rgba(99, 102, 241, 0.06)", radius: 8 }}
+                  cursor={{ fill: "rgba(0, 0, 0, 0.03)", radius: 8 }}
                   contentStyle={{
-                    background: "rgba(255,255,255,0.85)",
-                    backdropFilter: "blur(12px)",
-                    border: "1px solid rgba(255,255,255,0.8)",
+                    background: "rgba(255,255,255,0.8)",
+                    backdropFilter: "blur(16px)",
+                    border: "1px solid rgba(255,255,255,0.9)",
                     borderRadius: 12,
-                    boxShadow: "0 4px 24px rgba(0,0,0,0.08)",
+                    boxShadow: "0 8px 32px rgba(0,0,0,0.08)",
                     fontFamily: "JetBrains Mono",
                     fontSize: 12,
                   }}
@@ -121,9 +121,9 @@ export default function Dashboard() {
                     <Cell
                       key={i}
                       fill={
-                        d.count / maxFL > 0.7 ? "#6366F1" :
-                        d.count / maxFL > 0.4 ? "#818CF8" :
-                        d.count / maxFL > 0.2 ? "#A5B4FC" : "#E0E7FF"
+                        d.count / maxFL > 0.7 ? "rgba(15, 15, 15, 0.8)" :
+                        d.count / maxFL > 0.4 ? "rgba(15, 15, 15, 0.5)" :
+                        d.count / maxFL > 0.2 ? "rgba(15, 15, 15, 0.25)" : "rgba(15, 15, 15, 0.1)"
                       }
                     />
                   ))}
@@ -143,11 +143,11 @@ export default function Dashboard() {
               <AreaChart data={activity}>
                 <defs>
                   <linearGradient id="actGrad" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="0%" stopColor="#6366F1" stopOpacity={0.2} />
-                    <stop offset="100%" stopColor="#6366F1" stopOpacity={0} />
+                    <stop offset="0%" stopColor="#1A1A1A" stopOpacity={0.12} />
+                    <stop offset="100%" stopColor="#1A1A1A" stopOpacity={0} />
                   </linearGradient>
                 </defs>
-                <CartesianGrid vertical={false} stroke="rgba(0,0,0,0.04)" />
+                <CartesianGrid vertical={false} stroke="rgba(0,0,0,0.03)" />
                 <XAxis
                   dataKey="period"
                   tick={{ fill: "#9CA3AF", fontSize: 10, fontFamily: "JetBrains Mono" }}
@@ -161,13 +161,13 @@ export default function Dashboard() {
                   width={35}
                 />
                 <Tooltip
-                  cursor={{ stroke: "#6366F1", strokeWidth: 1, strokeDasharray: "4 4" }}
+                  cursor={{ stroke: "rgba(0,0,0,0.15)", strokeWidth: 1 }}
                   contentStyle={{
-                    background: "rgba(255,255,255,0.85)",
-                    backdropFilter: "blur(12px)",
-                    border: "1px solid rgba(255,255,255,0.8)",
+                    background: "rgba(255,255,255,0.8)",
+                    backdropFilter: "blur(16px)",
+                    border: "1px solid rgba(255,255,255,0.9)",
                     borderRadius: 12,
-                    boxShadow: "0 4px 24px rgba(0,0,0,0.08)",
+                    boxShadow: "0 8px 32px rgba(0,0,0,0.08)",
                     fontFamily: "JetBrains Mono",
                     fontSize: 12,
                   }}
@@ -176,11 +176,11 @@ export default function Dashboard() {
                 <Area
                   type="monotone"
                   dataKey="count"
-                  stroke="#6366F1"
-                  strokeWidth={2.5}
+                  stroke="rgba(15, 15, 15, 0.6)"
+                  strokeWidth={2}
                   fill="url(#actGrad)"
-                  dot={{ r: 3, fill: "#6366F1", strokeWidth: 0 }}
-                  activeDot={{ r: 5, fill: "#6366F1", stroke: "#fff", strokeWidth: 2 }}
+                  dot={{ r: 3, fill: "rgba(15,15,15,0.7)", strokeWidth: 0 }}
+                  activeDot={{ r: 5, fill: "#1A1A1A", stroke: "#fff", strokeWidth: 2 }}
                   animationDuration={1000}
                 />
               </AreaChart>
@@ -196,7 +196,7 @@ export default function Dashboard() {
           <div className="glass rounded-[28px] p-6 md:p-8 mt-4 space-y-5">
             {top_gear.map((item, i) => {
               const maxGear = top_gear[0].count;
-              const colors = ["#6366F1", "#818CF8", "#A5B4FC", "#C7D2FE", "#E0E7FF"];
+              const opacities = [0.75, 0.55, 0.38, 0.22, 0.12];
               return (
                 <button
                   key={item.lens}
@@ -206,14 +206,17 @@ export default function Dashboard() {
                   <div className="flex items-baseline justify-between mb-2">
                     <div className="flex items-baseline gap-3">
                       <span className="font-mono text-xs text-stone">{String(i + 1).padStart(2, "0")}</span>
-                      <span className="text-sm font-medium group-hover:text-indigo-500 transition-colors">{item.lens}</span>
+                      <span className="text-sm font-medium group-hover:opacity-60 transition-opacity">{item.lens}</span>
                     </div>
                     <span className="font-mono text-sm tabular-nums">{item.count.toLocaleString()}</span>
                   </div>
-                  <div className="w-full h-3 bg-indigo-50 rounded-full overflow-hidden">
+                  <div className="w-full h-3 rounded-full overflow-hidden" style={{ background: "rgba(0,0,0,0.04)" }}>
                     <div
                       className="h-full rounded-full transition-all duration-700"
-                      style={{ width: `${(item.count / maxGear) * 100}%`, backgroundColor: colors[i] || colors[4] }}
+                      style={{
+                        width: `${(item.count / maxGear) * 100}%`,
+                        background: `rgba(15, 15, 15, ${opacities[i] || 0.1})`,
+                      }}
                     />
                   </div>
                 </button>
@@ -229,7 +232,7 @@ export default function Dashboard() {
 function StatCard({ value, label, accent }: { value: string; label: string; accent?: boolean }) {
   return (
     <div className="glass rounded-3xl p-6 hover:shadow-md transition-shadow group">
-      <p className={`font-display text-4xl md:text-5xl tracking-tight transition-colors ${accent ? "text-indigo-500" : "text-ink group-hover:text-indigo-500"}`}>
+      <p className={`font-display text-4xl md:text-5xl tracking-tight transition-opacity ${accent ? "opacity-100" : "opacity-80 group-hover:opacity-100"}`}>
         {value}
       </p>
       <p className="font-mono text-[10px] text-stone uppercase tracking-[0.15em] mt-2">{label}</p>

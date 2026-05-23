@@ -138,7 +138,14 @@ export default function PhotoViewer({ photos, currentIndex, onClose, onNavigate 
               </div>
             )}
 
-            <div className="pt-4 border-t border-sand flex justify-between items-center">
+            {/* Auto-insight */}
+            <div className="pt-4 border-t border-sand">
+              <p className="font-mono text-[10px] text-stone leading-relaxed">
+                {generateInsight(photo)}
+              </p>
+            </div>
+
+            <div className="pt-3 flex justify-between items-center">
               <span className="font-mono text-xs text-stone tabular-nums">{currentIndex + 1} / {photos.length}</span>
               <span className="font-mono text-[9px] text-sand uppercase tracking-wider">keys / swipe</span>
             </div>
@@ -147,6 +154,35 @@ export default function PhotoViewer({ photos, currentIndex, onClose, onNavigate 
       </div>
     </div>
   );
+}
+
+function generateInsight(photo: PhotoItem): string {
+  const parts: string[] = [];
+  const fl = photo.focal_length;
+  const ap = photo.aperture;
+  const iso = photo.iso;
+  const hour = photo.date_taken ? new Date(photo.date_taken).getHours() : null;
+
+  if (fl && ap) {
+    if (fl >= 70 && fl <= 135 && ap <= 2.8) parts.push("Portrait-style isolation");
+    else if (fl <= 35 && ap >= 8) parts.push("Landscape depth");
+    else if (fl >= 200) parts.push("Telephoto reach");
+    else if (fl >= 28 && fl <= 55 && ap <= 4) parts.push("Classic street focal length");
+  }
+
+  if (iso && iso <= 200) parts.push("clean sensor");
+  else if (iso && iso >= 3200) parts.push("pushed in low light");
+
+  if (hour !== null) {
+    if ((hour >= 6 && hour <= 8) || (hour >= 17 && hour <= 19)) parts.push("golden hour");
+    else if (hour >= 21 || hour <= 4) parts.push("night shot");
+  }
+
+  if (ap && ap <= 1.8) parts.push("wide open bokeh");
+  else if (ap && ap >= 8 && ap <= 11) parts.push("sweet spot sharpness");
+
+  if (parts.length === 0) return "Standard exposure settings";
+  return parts.join(" · ");
 }
 
 function ExifStat({ label, value }: { label: string; value: string }) {
