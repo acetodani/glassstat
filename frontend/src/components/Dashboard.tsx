@@ -2,6 +2,7 @@ import { api, DashboardData } from "../api/client";
 import { useFetch } from "../hooks/useAnalytics";
 import { useNavigate } from "react-router-dom";
 import { BarChart, Bar, XAxis, ResponsiveContainer, Cell, AreaChart, Area } from "recharts";
+import Onboarding from "./Onboarding";
 
 export default function Dashboard() {
   const { data, loading } = useFetch<DashboardData>(api.getDashboard, "dashboard");
@@ -16,30 +17,20 @@ export default function Dashboard() {
   }
 
   if (!data || data.stats.total_photos === 0) {
-    return (
-      <div className="flex flex-col items-center justify-center h-[70vh] gap-6">
-        <p className="font-display text-6xl">0</p>
-        <p className="text-stone text-sm">
-          No photos scanned yet.{" "}
-          <button onClick={() => navigate("/ingest")} className="text-accent underline underline-offset-2">
-            Import your library
-          </button>
-        </p>
-      </div>
-    );
+    return <Onboarding />;
   }
 
   const { stats, recent_photos, top_gear, focal_length, activity } = data;
   const maxFL = Math.max(...focal_length.map((d) => d.count), 1);
 
   return (
-    <div className="space-y-20 pt-8">
-      {/* Hero stats */}
-      <section className="grid grid-cols-2 md:grid-cols-4 gap-y-10">
-        <HeroStat value={stats.total_photos.toLocaleString()} label="photos" accent />
-        <HeroStat value={String(stats.unique_lenses)} label="lenses" />
-        <HeroStat value={String(stats.unique_bodies)} label="bodies" />
-        <HeroStat
+    <div className="space-y-16 pt-8">
+      {/* Hero stats in glass cards */}
+      <section className="grid grid-cols-2 md:grid-cols-4 gap-4">
+        <StatCard value={stats.total_photos.toLocaleString()} label="photos" accent />
+        <StatCard value={String(stats.unique_lenses)} label="lenses" />
+        <StatCard value={String(stats.unique_bodies)} label="bodies" />
+        <StatCard
           value={
             stats.date_range.earliest
               ? `${stats.date_range.earliest.slice(0, 4)}–${stats.date_range.latest?.slice(0, 4)}`
@@ -52,21 +43,22 @@ export default function Dashboard() {
       {/* Recent photos strip */}
       {recent_photos.length > 0 && (
         <section>
-          <div className="flex items-baseline justify-between mb-5">
+          <div className="flex items-baseline justify-between mb-4">
             <SectionHead title="Recent" note="latest imports" />
             <button
               onClick={() => navigate("/gallery")}
-              className="text-xs font-mono text-stone hover:text-ink transition-colors"
+              className="text-xs font-mono text-stone hover:text-accent transition-colors"
             >
               view all →
             </button>
           </div>
           <div className="grid grid-cols-4 md:grid-cols-8 gap-2">
-            {recent_photos.map((photo) => (
+            {recent_photos.map((photo, i) => (
               <button
                 key={photo.id}
                 onClick={() => navigate("/gallery")}
-                className="aspect-square bg-warm rounded-xl overflow-hidden hover:scale-105 transition-transform"
+                className="aspect-square rounded-2xl overflow-hidden hover:scale-105 transition-transform glass animate-pop-in"
+                style={{ animationDelay: `${i * 50}ms` }}
               >
                 {photo.has_file ? (
                   <img
@@ -76,9 +68,9 @@ export default function Dashboard() {
                     loading="lazy"
                   />
                 ) : (
-                  <div className="w-full h-full flex items-center justify-center">
-                    <span className="font-mono text-[8px] text-stone text-center px-1 truncate">
-                      {photo.file_name}
+                  <div className="w-full h-full flex items-center justify-center bg-warm/50">
+                    <span className="font-mono text-[7px] text-stone text-center px-1 truncate">
+                      {photo.focal_length ? `${photo.focal_length}mm` : photo.file_name}
                     </span>
                   </div>
                 )}
@@ -91,7 +83,7 @@ export default function Dashboard() {
       {/* Focal length */}
       <section>
         <SectionHead title="Focal Length" note="where your eye gravitates" />
-        <div className="bg-warm rounded-[28px] p-8 md:p-10 mt-5">
+        <div className="glass rounded-[28px] p-8 md:p-10 mt-5 shadow-sm">
           <ResponsiveContainer width="100%" height={260}>
             <BarChart data={focal_length.map((d) => ({ name: `${d.focal_length}`, shots: d.count, pct: d.count / maxFL }))}>
               <XAxis
@@ -111,17 +103,17 @@ export default function Dashboard() {
         </div>
       </section>
 
-      {/* Activity timeline */}
+      {/* Activity */}
       {activity.length > 0 && (
         <section>
           <SectionHead title="Activity" note="shots per month" />
-          <div className="bg-warm rounded-[28px] p-8 md:p-10 mt-5">
+          <div className="glass rounded-[28px] p-8 md:p-10 mt-5 shadow-sm">
             <ResponsiveContainer width="100%" height={160}>
               <AreaChart data={activity}>
                 <defs>
                   <linearGradient id="actGrad" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="0%" stopColor="#1A1A1A" stopOpacity={0.12} />
-                    <stop offset="100%" stopColor="#1A1A1A" stopOpacity={0} />
+                    <stop offset="0%" stopColor="#E8553D" stopOpacity={0.15} />
+                    <stop offset="100%" stopColor="#E8553D" stopOpacity={0} />
                   </linearGradient>
                 </defs>
                 <XAxis
@@ -130,7 +122,7 @@ export default function Dashboard() {
                   axisLine={false}
                   tickLine={false}
                 />
-                <Area type="monotone" dataKey="count" stroke="#1A1A1A" strokeWidth={2} fill="url(#actGrad)" />
+                <Area type="monotone" dataKey="count" stroke="#E8553D" strokeWidth={2} fill="url(#actGrad)" />
               </AreaChart>
             </ResponsiveContainer>
           </div>
@@ -141,7 +133,7 @@ export default function Dashboard() {
       {top_gear.length > 0 && (
         <section>
           <SectionHead title="Your Glass" note="ranked by shutter count" />
-          <div className="mt-5 space-y-5">
+          <div className="glass rounded-[28px] p-8 mt-5 shadow-sm space-y-5">
             {top_gear.map((item, i) => {
               const maxGear = top_gear[0].count;
               return (
@@ -159,7 +151,7 @@ export default function Dashboard() {
                     </div>
                     <span className="font-mono text-sm tabular-nums">{item.count.toLocaleString()}</span>
                   </div>
-                  <div className="w-full h-3 bg-warm rounded-full overflow-hidden">
+                  <div className="w-full h-3 bg-white/40 rounded-full overflow-hidden">
                     <div
                       className="h-full rounded-full transition-all duration-700"
                       style={{
@@ -178,10 +170,10 @@ export default function Dashboard() {
   );
 }
 
-function HeroStat({ value, label, accent }: { value: string; label: string; accent?: boolean }) {
+function StatCard({ value, label, accent }: { value: string; label: string; accent?: boolean }) {
   return (
-    <div className="group">
-      <p className={`font-display text-5xl md:text-7xl tracking-tight transition-colors ${accent ? "text-accent" : "text-ink group-hover:text-accent"}`}>
+    <div className="glass rounded-3xl p-6 shadow-sm hover:shadow-md transition-shadow group">
+      <p className={`font-display text-4xl md:text-5xl tracking-tight transition-colors ${accent ? "text-accent" : "text-ink group-hover:text-accent"}`}>
         {value}
       </p>
       <p className="font-mono text-[10px] text-stone uppercase tracking-[0.2em] mt-2">{label}</p>

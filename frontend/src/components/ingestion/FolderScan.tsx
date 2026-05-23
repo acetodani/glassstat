@@ -17,7 +17,7 @@ export default function FolderScan({ onScanStart }: { onScanStart: () => void })
   };
 
   return (
-    <div className="bg-warm rounded-3xl p-8">
+    <div className="glass rounded-3xl p-8 shadow-sm">
       <p className="font-mono text-xs text-stone uppercase tracking-widest mb-4">
         directory scan
       </p>
@@ -28,7 +28,7 @@ export default function FolderScan({ onScanStart }: { onScanStart: () => void })
           onChange={(e) => setDirectory(e.target.value)}
           onKeyDown={(e) => e.key === "Enter" && handleScan()}
           placeholder="/Users/you/Photos"
-          className="flex-1 bg-cream border border-sand rounded-xl px-4 py-3 text-sm font-mono focus:outline-none focus:border-ink transition-colors"
+          className="flex-1 glass-subtle rounded-xl px-4 py-3 text-sm font-mono focus:outline-none focus:ring-2 focus:ring-accent/30 transition-all"
         />
         <button
           onClick={handleScan}

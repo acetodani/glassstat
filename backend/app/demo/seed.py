@@ -105,6 +105,7 @@ def generate_demo_data(num_photos: int = 5000):
             file_path=f"/demo/photos/{random_day.strftime('%Y/%m/%d')}/DSC{i:05d}.ARW",
             file_name=f"DSC{i:05d}.ARW",
             file_format="ARW",
+            has_file=False,
             camera_make=body_make,
             camera_model=body_model,
             lens_make=lens_make,

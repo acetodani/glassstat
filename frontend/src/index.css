@@ -4,12 +4,13 @@
 
 @layer base {
   body {
-    background-color: #F8F6F1;
+    background-color: #F5F3EE;
     color: #1A1A1A;
     -webkit-font-smoothing: antialiased;
     background-image:
-      radial-gradient(ellipse at 20% 0%, rgba(232, 85, 61, 0.04) 0%, transparent 50%),
-      radial-gradient(ellipse at 80% 100%, rgba(100, 140, 200, 0.04) 0%, transparent 50%);
+      radial-gradient(ellipse at 15% 5%, rgba(232, 85, 61, 0.06) 0%, transparent 40%),
+      radial-gradient(ellipse at 85% 90%, rgba(80, 120, 200, 0.05) 0%, transparent 40%),
+      radial-gradient(ellipse at 50% 50%, rgba(255, 255, 255, 0.4) 0%, transparent 70%);
     background-attachment: fixed;
     min-height: 100vh;
   }
@@ -17,6 +18,29 @@
   ::selection {
     background-color: #E8553D;
     color: white;
+  }
+}
+
+@layer components {
+  .glass {
+    background: rgba(255, 255, 255, 0.55);
+    backdrop-filter: blur(20px) saturate(1.4);
+    -webkit-backdrop-filter: blur(20px) saturate(1.4);
+    border: 1px solid rgba(255, 255, 255, 0.6);
+  }
+
+  .glass-strong {
+    background: rgba(255, 255, 255, 0.72);
+    backdrop-filter: blur(40px) saturate(1.6);
+    -webkit-backdrop-filter: blur(40px) saturate(1.6);
+    border: 1px solid rgba(255, 255, 255, 0.8);
+  }
+
+  .glass-subtle {
+    background: rgba(255, 255, 255, 0.35);
+    backdrop-filter: blur(12px) saturate(1.2);
+    -webkit-backdrop-filter: blur(12px) saturate(1.2);
+    border: 1px solid rgba(255, 255, 255, 0.4);
   }
 }
 
