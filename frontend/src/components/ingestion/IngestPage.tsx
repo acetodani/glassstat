@@ -3,21 +3,18 @@ import DragDropUpload from "./DragDropUpload";
 
 export default function IngestPage() {
   return (
-    <div className="max-w-2xl mx-auto space-y-8">
+    <div className="max-w-xl mx-auto pt-12 space-y-12">
       <div>
-        <h2 className="text-2xl font-bold mb-2">Import Photos</h2>
-        <p className="text-gray-400">
-          Scan a local directory or upload files to analyze your gear usage.
+        <h1 className="font-display text-5xl">Import</h1>
+        <p className="text-stone mt-3">
+          Point at your photo folder, or drop some files.
         </p>
       </div>
       <FolderScan />
-      <div className="relative">
-        <div className="absolute inset-0 flex items-center">
-          <div className="w-full border-t border-gray-800" />
-        </div>
-        <div className="relative flex justify-center">
-          <span className="bg-gray-950 px-4 text-sm text-gray-500">or</span>
-        </div>
+      <div className="flex items-center gap-4">
+        <div className="flex-1 h-px bg-sand" />
+        <span className="text-stone text-xs font-mono">or</span>
+        <div className="flex-1 h-px bg-sand" />
       </div>
       <DragDropUpload />
     </div>

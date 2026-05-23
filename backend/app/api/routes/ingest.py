@@ -1,4 +1,7 @@
+from __future__ import annotations
+
 from pathlib import Path
+from typing import List
 
 from fastapi import APIRouter, BackgroundTasks, HTTPException, UploadFile
 from sqlmodel import Session, select
@@ -38,7 +41,7 @@ async def start_scan(directory: str, background_tasks: BackgroundTasks):
 
 
 @router.post("/upload")
-async def upload_files(files: list[UploadFile], background_tasks: BackgroundTasks):
+async def upload_files(files: List[UploadFile], background_tasks: BackgroundTasks):
     settings.upload_dir.mkdir(parents=True, exist_ok=True)
     saved_paths = []
 
@@ -70,7 +73,7 @@ async def get_status():
     }
 
 
-def _run_scan(files: list[Path]):
+def _run_scan(files: List[Path]):
     with Session(engine) as session:
         for i in range(0, len(files), BATCH_SIZE):
             batch = files[i : i + BATCH_SIZE]

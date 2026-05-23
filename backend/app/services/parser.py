@@ -1,11 +1,14 @@
+from __future__ import annotations
+
 from datetime import datetime
 from pathlib import Path
+from typing import Optional, List
 
 from app.core.exiftool import extract_metadata
 from app.models.photo import Photo
 
 
-def parse_exif_batch(file_paths: list[Path]) -> list[Photo]:
+def parse_exif_batch(file_paths: List[Path]) -> List[Photo]:
     raw_data = extract_metadata(file_paths)
     photos = []
 
@@ -17,7 +20,7 @@ def parse_exif_batch(file_paths: list[Path]) -> list[Photo]:
     return photos
 
 
-def _normalize_exif(data: dict) -> Photo | None:
+def _normalize_exif(data: dict) -> Optional[Photo]:
     source_file = data.get("SourceFile")
     if not source_file:
         return None
@@ -48,7 +51,7 @@ def _normalize_exif(data: dict) -> Photo | None:
     )
 
 
-def _parse_date(value) -> datetime | None:
+def _parse_date(value) -> Optional[datetime]:
     if not value or not isinstance(value, str):
         return None
     for fmt in ("%Y:%m:%d %H:%M:%S", "%Y-%m-%dT%H:%M:%S"):
@@ -59,7 +62,7 @@ def _parse_date(value) -> datetime | None:
     return None
 
 
-def _format_shutter(value) -> str | None:
+def _format_shutter(value) -> Optional[str]:
     if value is None:
         return None
     if isinstance(value, (int, float)) and value > 0:
@@ -70,14 +73,14 @@ def _format_shutter(value) -> str | None:
     return str(value)
 
 
-def _clean_string(value) -> str | None:
+def _clean_string(value) -> Optional[str]:
     if value is None:
         return None
     s = str(value).strip()
     return s if s else None
 
 
-def _to_float(value) -> float | None:
+def _to_float(value) -> Optional[float]:
     if value is None:
         return None
     try:
@@ -86,7 +89,7 @@ def _to_float(value) -> float | None:
         return None
 
 
-def _to_int(value) -> int | None:
+def _to_int(value) -> Optional[int]:
     if value is None:
         return None
     try:

@@ -1,178 +1,73 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 400" fill="none">
-  <rect width="1200" height="400" fill="#0a0a0f"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 360" fill="none">
+  <rect width="1200" height="360" fill="#F8F6F1"/>
 
-  <!-- Feature Card 1: Focal Length -->
-  <rect x="30" y="20" width="270" height="170" rx="12" fill="#111118" stroke="#1e1e2e" stroke-width="1"/>
-  <text x="50" y="50" font-family="Inter, system-ui, sans-serif" font-size="13" font-weight="600" fill="#ffffff">Focal Length Heatmap</text>
-  <text x="50" y="70" font-family="Inter, system-ui, sans-serif" font-size="10" fill="#6b7280">Which focal lengths do you reach for?</text>
-  <!-- Mini chart -->
-  <rect x="50" y="90" width="16" height="80" rx="3" fill="#36adf8" opacity="0.4"/>
-  <rect x="72" y="70" width="16" height="100" rx="3" fill="#36adf8" opacity="0.6"/>
-  <rect x="94" y="50" width="16" height="120" rx="3" fill="#36adf8"/>
-  <rect x="116" y="65" width="16" height="105" rx="3" fill="#36adf8" opacity="0.7"/>
-  <rect x="138" y="85" width="16" height="85" rx="3" fill="#36adf8" opacity="0.5"/>
-  <rect x="160" y="100" width="16" height="70" rx="3" fill="#36adf8" opacity="0.4"/>
-  <rect x="182" y="75" width="16" height="95" rx="3" fill="#36adf8" opacity="0.55"/>
-  <rect x="204" y="110" width="16" height="60" rx="3" fill="#36adf8" opacity="0.3"/>
-  <rect x="226" y="125" width="16" height="45" rx="3" fill="#36adf8" opacity="0.25"/>
-  <rect x="248" y="135" width="16" height="35" rx="3" fill="#36adf8" opacity="0.2"/>
+  <!-- Card 1: Wrapped -->
+  <rect x="40" y="30" width="350" height="300" rx="20" fill="#EDE9E3"/>
+  <text x="70" y="70" font-family="'Courier New', monospace" font-size="9" fill="#A39E96" letter-spacing="2">YOUR YEAR</text>
+  <text x="70" y="130" font-family="Georgia, serif" font-size="56" fill="#1A1A1A">5,847</text>
+  <text x="70" y="155" font-family="'Courier New', monospace" font-size="10" fill="#A39E96">photos captured</text>
 
-  <!-- Feature Card 2: Time Heatmap -->
-  <rect x="320" y="20" width="270" height="170" rx="12" fill="#111118" stroke="#1e1e2e" stroke-width="1"/>
-  <text x="340" y="50" font-family="Inter, system-ui, sans-serif" font-size="13" font-weight="600" fill="#ffffff">Shooting Patterns</text>
-  <text x="340" y="70" font-family="Inter, system-ui, sans-serif" font-size="10" fill="#6b7280">GitHub-style contribution heatmap</text>
-  <!-- Heatmap grid -->
-  <rect x="340" y="85" width="14" height="14" rx="3" fill="#36adf8" opacity="0.1"/>
-  <rect x="358" y="85" width="14" height="14" rx="3" fill="#36adf8" opacity="0.3"/>
-  <rect x="376" y="85" width="14" height="14" rx="3" fill="#36adf8" opacity="0.2"/>
-  <rect x="394" y="85" width="14" height="14" rx="3" fill="#36adf8" opacity="0.6"/>
-  <rect x="412" y="85" width="14" height="14" rx="3" fill="#36adf8" opacity="0.8"/>
-  <rect x="430" y="85" width="14" height="14" rx="3" fill="#36adf8" opacity="0.9"/>
-  <rect x="448" y="85" width="14" height="14" rx="3" fill="#36adf8" opacity="0.7"/>
-  <rect x="466" y="85" width="14" height="14" rx="3" fill="#36adf8" opacity="0.4"/>
-  <rect x="484" y="85" width="14" height="14" rx="3" fill="#36adf8" opacity="0.2"/>
-  <rect x="502" y="85" width="14" height="14" rx="3" fill="#36adf8" opacity="0.1"/>
-  <rect x="520" y="85" width="14" height="14" rx="3" fill="#36adf8" opacity="0.1"/>
-  <rect x="538" y="85" width="14" height="14" rx="3" fill="#36adf8" opacity="0.05"/>
+  <text x="70" y="195" font-family="'Courier New', monospace" font-size="9" fill="#A39E96" letter-spacing="1">TOP LENS</text>
+  <text x="70" y="218" font-family="Georgia, serif" font-size="18" fill="#1A1A1A">35mm f/1.4 GM</text>
+  <rect x="70" y="230" width="290" height="5" rx="2.5" fill="#D4CFC7"/>
+  <rect x="70" y="230" width="185" height="5" rx="2.5" fill="#E8553D"/>
 
-  <rect x="340" y="103" width="14" height="14" rx="3" fill="#36adf8" opacity="0.05"/>
-  <rect x="358" y="103" width="14" height="14" rx="3" fill="#36adf8" opacity="0.2"/>
-  <rect x="376" y="103" width="14" height="14" rx="3" fill="#36adf8" opacity="0.4"/>
-  <rect x="394" y="103" width="14" height="14" rx="3" fill="#36adf8" opacity="0.7"/>
-  <rect x="412" y="103" width="14" height="14" rx="3" fill="#36adf8" opacity="1.0"/>
-  <rect x="430" y="103" width="14" height="14" rx="3" fill="#36adf8" opacity="0.9"/>
-  <rect x="448" y="103" width="14" height="14" rx="3" fill="#36adf8" opacity="0.6"/>
-  <rect x="466" y="103" width="14" height="14" rx="3" fill="#36adf8" opacity="0.3"/>
-  <rect x="484" y="103" width="14" height="14" rx="3" fill="#36adf8" opacity="0.15"/>
-  <rect x="502" y="103" width="14" height="14" rx="3" fill="#36adf8" opacity="0.05"/>
-  <rect x="520" y="103" width="14" height="14" rx="3" fill="#36adf8" opacity="0.1"/>
-  <rect x="538" y="103" width="14" height="14" rx="3" fill="#36adf8" opacity="0.05"/>
+  <text x="70" y="270" font-family="'Courier New', monospace" font-size="9" fill="#A39E96" letter-spacing="1">ARCHETYPE</text>
+  <text x="70" y="295" font-family="Georgia, serif" font-size="20" fill="#1A1A1A">The Bokeh Addict</text>
+  <circle x="325" y="295" r="5" fill="#E8553D"/>
 
-  <rect x="340" y="121" width="14" height="14" rx="3" fill="#36adf8" opacity="0.1"/>
-  <rect x="358" y="121" width="14" height="14" rx="3" fill="#36adf8" opacity="0.15"/>
-  <rect x="376" y="121" width="14" height="14" rx="3" fill="#36adf8" opacity="0.3"/>
-  <rect x="394" y="121" width="14" height="14" rx="3" fill="#36adf8" opacity="0.5"/>
-  <rect x="412" y="121" width="14" height="14" rx="3" fill="#36adf8" opacity="0.6"/>
-  <rect x="430" y="121" width="14" height="14" rx="3" fill="#36adf8" opacity="0.5"/>
-  <rect x="448" y="121" width="14" height="14" rx="3" fill="#36adf8" opacity="0.4"/>
-  <rect x="466" y="121" width="14" height="14" rx="3" fill="#36adf8" opacity="0.2"/>
-  <rect x="484" y="121" width="14" height="14" rx="3" fill="#36adf8" opacity="0.1"/>
-  <rect x="502" y="121" width="14" height="14" rx="3" fill="#36adf8" opacity="0.05"/>
-  <rect x="520" y="121" width="14" height="14" rx="3" fill="#36adf8" opacity="0.1"/>
-  <rect x="538" y="121" width="14" height="14" rx="3" fill="#36adf8" opacity="0.15"/>
+  <!-- Card 2: Analytics -->
+  <rect x="420" y="30" width="350" height="300" rx="20" fill="#EDE9E3"/>
+  <text x="450" y="70" font-family="'Courier New', monospace" font-size="9" fill="#A39E96" letter-spacing="2">ANALYTICS</text>
 
-  <!-- Labels -->
-  <text x="340" y="155" font-family="Inter, system-ui, sans-serif" font-size="8" fill="#6b7280">6am</text>
-  <text x="412" y="155" font-family="Inter, system-ui, sans-serif" font-size="8" fill="#6b7280">12pm</text>
-  <text x="484" y="155" font-family="Inter, system-ui, sans-serif" font-size="8" fill="#6b7280">6pm</text>
-  <text x="538" y="155" font-family="Inter, system-ui, sans-serif" font-size="8" fill="#6b7280">12am</text>
+  <!-- Mini aperture chart -->
+  <rect x="450" y="90" width="18" height="100" rx="3" fill="#D4CFC7"/>
+  <rect x="474" y="70" width="18" height="120" rx="3" fill="#1A1A1A"/>
+  <rect x="498" y="85" width="18" height="105" rx="3" fill="#1A1A1A"/>
+  <rect x="522" y="100" width="18" height="90" rx="3" fill="#D4CFC7"/>
+  <rect x="546" y="115" width="18" height="75" rx="3" fill="#D4CFC7"/>
+  <rect x="570" y="130" width="18" height="60" rx="3" fill="#D4CFC7"/>
+  <rect x="594" y="140" width="18" height="50" rx="3" fill="#D4CFC7"/>
+  <rect x="618" y="150" width="18" height="40" rx="3" fill="#D4CFC7"/>
+  <rect x="642" y="158" width="18" height="32" rx="3" fill="#D4CFC7"/>
+  <rect x="666" y="165" width="18" height="25" rx="3" fill="#D4CFC7"/>
 
-  <!-- Feature Card 3: Gear ROI -->
-  <rect x="610" y="20" width="270" height="170" rx="12" fill="#111118" stroke="#1e1e2e" stroke-width="1"/>
-  <text x="630" y="50" font-family="Inter, system-ui, sans-serif" font-size="13" font-weight="600" fill="#ffffff">Gear ROI</text>
-  <text x="630" y="70" font-family="Inter, system-ui, sans-serif" font-size="10" fill="#6b7280">Is that lens earning its keep?</text>
+  <text x="450" y="215" font-family="Georgia, serif" font-size="14" fill="#1A1A1A">Aperture, ISO, Shutter Speed</text>
+  <text x="450" y="240" font-family="system-ui, sans-serif" font-size="12" fill="#A39E96">Focal length heatmaps</text>
+  <text x="450" y="260" font-family="system-ui, sans-serif" font-size="12" fill="#A39E96">Time-of-day patterns</text>
+  <text x="450" y="280" font-family="system-ui, sans-serif" font-size="12" fill="#A39E96">Gear ROI calculator</text>
+  <text x="450" y="300" font-family="system-ui, sans-serif" font-size="12" fill="#A39E96">GPS shot map</text>
 
-  <text x="630" y="100" font-family="Inter, system-ui, sans-serif" font-size="10" fill="#9ca3af">35mm f/1.4 GM</text>
-  <text x="820" y="100" font-family="Inter, system-ui, sans-serif" font-size="10" fill="#22c55e" text-anchor="end">$0.33/shot</text>
-  <rect x="630" y="107" width="200" height="3" rx="1.5" fill="#1e1e2e"/>
-  <rect x="630" y="107" width="200" height="3" rx="1.5" fill="#22c55e"/>
+  <!-- Card 3: Formats -->
+  <rect x="800" y="30" width="360" height="300" rx="20" fill="#EDE9E3"/>
+  <text x="830" y="70" font-family="'Courier New', monospace" font-size="9" fill="#A39E96" letter-spacing="2">FORMATS</text>
+  <text x="830" y="110" font-family="Georgia, serif" font-size="42" fill="#1A1A1A">400+</text>
+  <text x="830" y="135" font-family="system-ui, sans-serif" font-size="13" fill="#A39E96">camera formats supported</text>
 
-  <text x="630" y="130" font-family="Inter, system-ui, sans-serif" font-size="10" fill="#9ca3af">24-70mm f/2.8</text>
-  <text x="820" y="130" font-family="Inter, system-ui, sans-serif" font-size="10" fill="#22c55e" text-anchor="end">$0.71/shot</text>
-  <rect x="630" y="137" width="200" height="3" rx="1.5" fill="#1e1e2e"/>
-  <rect x="630" y="137" width="140" height="3" rx="1.5" fill="#eab308"/>
+  <!-- Format tags -->
+  <rect x="830" y="155" width="45" height="26" rx="6" fill="#D4CFC7"/>
+  <text x="841" y="172" font-family="'Courier New', monospace" font-size="10" fill="#1A1A1A">CR3</text>
+  <rect x="882" y="155" width="45" height="26" rx="6" fill="#D4CFC7"/>
+  <text x="893" y="172" font-family="'Courier New', monospace" font-size="10" fill="#1A1A1A">NEF</text>
+  <rect x="934" y="155" width="48" height="26" rx="6" fill="#D4CFC7"/>
+  <text x="945" y="172" font-family="'Courier New', monospace" font-size="10" fill="#1A1A1A">ARW</text>
+  <rect x="989" y="155" width="48" height="26" rx="6" fill="#D4CFC7"/>
+  <text x="1000" y="172" font-family="'Courier New', monospace" font-size="10" fill="#1A1A1A">DNG</text>
+  <rect x="1044" y="155" width="50" height="26" rx="6" fill="#D4CFC7"/>
+  <text x="1055" y="172" font-family="'Courier New', monospace" font-size="10" fill="#1A1A1A">HEIF</text>
 
-  <text x="630" y="160" font-family="Inter, system-ui, sans-serif" font-size="10" fill="#9ca3af">70-200mm f/2.8</text>
-  <text x="820" y="160" font-family="Inter, system-ui, sans-serif" font-size="10" fill="#ef4444" text-anchor="end">$4.20/shot</text>
-  <rect x="630" y="167" width="200" height="3" rx="1.5" fill="#1e1e2e"/>
-  <rect x="630" y="167" width="40" height="3" rx="1.5" fill="#ef4444"/>
+  <rect x="830" y="188" width="45" height="26" rx="6" fill="#D4CFC7"/>
+  <text x="841" y="205" font-family="'Courier New', monospace" font-size="10" fill="#1A1A1A">CR2</text>
+  <rect x="882" y="188" width="45" height="26" rx="6" fill="#D4CFC7"/>
+  <text x="893" y="205" font-family="'Courier New', monospace" font-size="10" fill="#1A1A1A">ORF</text>
+  <rect x="934" y="188" width="48" height="26" rx="6" fill="#D4CFC7"/>
+  <text x="945" y="205" font-family="'Courier New', monospace" font-size="10" fill="#1A1A1A">RW2</text>
+  <rect x="989" y="188" width="48" height="26" rx="6" fill="#D4CFC7"/>
+  <text x="1000" y="205" font-family="'Courier New', monospace" font-size="10" fill="#1A1A1A">RAF</text>
+  <rect x="1044" y="188" width="50" height="26" rx="6" fill="#E8553D" opacity="0.15"/>
+  <text x="1055" y="205" font-family="'Courier New', monospace" font-size="10" fill="#E8553D">AVIF</text>
 
-  <!-- Feature Card 4: Shot Map -->
-  <rect x="900" y="20" width="270" height="170" rx="12" fill="#111118" stroke="#1e1e2e" stroke-width="1"/>
-  <text x="920" y="50" font-family="Inter, system-ui, sans-serif" font-size="13" font-weight="600" fill="#ffffff">GPS Shot Map</text>
-  <text x="920" y="70" font-family="Inter, system-ui, sans-serif" font-size="10" fill="#6b7280">Every geotagged photo on a map</text>
-  <!-- Simplified world map dots -->
-  <circle cx="980" cy="110" r="4" fill="#36adf8" opacity="0.8"/>
-  <circle cx="1020" cy="100" r="3" fill="#36adf8" opacity="0.6"/>
-  <circle cx="1060" cy="115" r="5" fill="#36adf8" opacity="0.9"/>
-  <circle cx="1100" cy="105" r="3" fill="#36adf8" opacity="0.5"/>
-  <circle cx="940" cy="130" r="3" fill="#7cc8fc" opacity="0.7"/>
-  <circle cx="1080" cy="140" r="4" fill="#7cc8fc" opacity="0.6"/>
-  <circle cx="1000" cy="150" r="3" fill="#36adf8" opacity="0.4"/>
-  <circle cx="1130" cy="125" r="3" fill="#36adf8" opacity="0.5"/>
-  <circle cx="960" cy="145" r="2" fill="#7cc8fc" opacity="0.4"/>
-  <circle cx="1040" cy="160" r="2" fill="#36adf8" opacity="0.3"/>
-
-  <!-- Feature Card 5: Wrapped -->
-  <rect x="30" y="210" width="370" height="170" rx="12" fill="#111118" stroke="#36adf8" stroke-width="1" stroke-opacity="0.3"/>
-  <rect x="30" y="210" width="370" height="170" rx="12" fill="#36adf8" opacity="0.03"/>
-  <text x="50" y="245" font-family="Inter, system-ui, sans-serif" font-size="14" font-weight="700" fill="#36adf8">COMING SOON</text>
-  <text x="50" y="270" font-family="Inter, system-ui, sans-serif" font-size="18" font-weight="700" fill="#ffffff">Year in Photos Wrapped</text>
-  <text x="50" y="295" font-family="Inter, system-ui, sans-serif" font-size="11" fill="#9ca3af">Generate a shareable card with your shooting stats.</text>
-  <text x="50" y="315" font-family="Inter, system-ui, sans-serif" font-size="11" fill="#9ca3af">Like Spotify Wrapped, but for photographers.</text>
-
-  <!-- Mini wrapped card preview -->
-  <rect x="280" y="240" width="100" height="120" rx="8" fill="#0d1525" stroke="#1e1e2e" stroke-width="1"/>
-  <text x="295" y="265" font-family="Inter, system-ui, sans-serif" font-size="7" fill="#36adf8">2024 IN PHOTOS</text>
-  <text x="295" y="285" font-family="Inter, system-ui, sans-serif" font-size="14" font-weight="700" fill="#ffffff">12,847</text>
-  <text x="295" y="298" font-family="Inter, system-ui, sans-serif" font-size="6" fill="#6b7280">photos taken</text>
-  <text x="295" y="320" font-family="Inter, system-ui, sans-serif" font-size="6" fill="#6b7280">Top lens: 35mm f/1.4</text>
-  <text x="295" y="333" font-family="Inter, system-ui, sans-serif" font-size="6" fill="#6b7280">Archetype: Bokeh Addict</text>
-  <rect x="290" y="342" width="80" height="12" rx="6" fill="#36adf8" opacity="0.2"/>
-  <text x="305" y="351" font-family="Inter, system-ui, sans-serif" font-size="7" fill="#36adf8">Share</text>
-
-  <!-- Feature Card 6: Archetypes -->
-  <rect x="420" y="210" width="370" height="170" rx="12" fill="#111118" stroke="#1e1e2e" stroke-width="1"/>
-  <text x="440" y="245" font-family="Inter, system-ui, sans-serif" font-size="14" font-weight="700" fill="#36adf8">COMING SOON</text>
-  <text x="440" y="270" font-family="Inter, system-ui, sans-serif" font-size="18" font-weight="700" fill="#ffffff">Photographer Archetypes</text>
-  <text x="440" y="295" font-family="Inter, system-ui, sans-serif" font-size="11" fill="#9ca3af">Discover your shooting personality based on data.</text>
-
-  <!-- Archetype badges -->
-  <rect x="440" y="310" width="100" height="24" rx="12" fill="#36adf8" opacity="0.12"/>
-  <text x="458" y="326" font-family="Inter, system-ui, sans-serif" font-size="9" fill="#36adf8">Bokeh Addict</text>
-
-  <rect x="548" y="310" width="100" height="24" rx="12" fill="#7cc8fc" opacity="0.12"/>
-  <text x="563" y="326" font-family="Inter, system-ui, sans-serif" font-size="9" fill="#7cc8fc">Street Hunter</text>
-
-  <rect x="656" y="310" width="100" height="24" rx="12" fill="#0c93e9" opacity="0.12"/>
-  <text x="668" y="326" font-family="Inter, system-ui, sans-serif" font-size="9" fill="#0c93e9">Pixel Peeper</text>
-
-  <rect x="440" y="342" width="120" height="24" rx="12" fill="#015ca1" opacity="0.15"/>
-  <text x="452" y="358" font-family="Inter, system-ui, sans-serif" font-size="9" fill="#7cc8fc">Golden Hour Chaser</text>
-
-  <!-- Feature Card 7: Formats -->
-  <rect x="810" y="210" width="360" height="170" rx="12" fill="#111118" stroke="#1e1e2e" stroke-width="1"/>
-  <text x="830" y="240" font-family="Inter, system-ui, sans-serif" font-size="13" font-weight="600" fill="#ffffff">400+ Camera Formats</text>
-  <text x="830" y="260" font-family="Inter, system-ui, sans-serif" font-size="10" fill="#6b7280">Powered by ExifTool — the industry standard</text>
-
-  <!-- Format badges -->
-  <rect x="830" y="275" width="40" height="20" rx="4" fill="#1e1e2e"/>
-  <text x="839" y="289" font-family="monospace" font-size="9" fill="#9ca3af">CR3</text>
-  <rect x="876" y="275" width="40" height="20" rx="4" fill="#1e1e2e"/>
-  <text x="885" y="289" font-family="monospace" font-size="9" fill="#9ca3af">NEF</text>
-  <rect x="922" y="275" width="42" height="20" rx="4" fill="#1e1e2e"/>
-  <text x="931" y="289" font-family="monospace" font-size="9" fill="#9ca3af">ARW</text>
-  <rect x="970" y="275" width="42" height="20" rx="4" fill="#1e1e2e"/>
-  <text x="979" y="289" font-family="monospace" font-size="9" fill="#9ca3af">DNG</text>
-  <rect x="1018" y="275" width="42" height="20" rx="4" fill="#1e1e2e"/>
-  <text x="1024" y="289" font-family="monospace" font-size="9" fill="#9ca3af">HEIF</text>
-  <rect x="1066" y="275" width="42" height="20" rx="4" fill="#1e1e2e"/>
-  <text x="1075" y="289" font-family="monospace" font-size="9" fill="#9ca3af">RAF</text>
-
-  <rect x="830" y="301" width="40" height="20" rx="4" fill="#1e1e2e"/>
-  <text x="839" y="315" font-family="monospace" font-size="9" fill="#9ca3af">CR2</text>
-  <rect x="876" y="301" width="42" height="20" rx="4" fill="#1e1e2e"/>
-  <text x="885" y="315" font-family="monospace" font-size="9" fill="#9ca3af">ORF</text>
-  <rect x="924" y="301" width="42" height="20" rx="4" fill="#1e1e2e"/>
-  <text x="933" y="315" font-family="monospace" font-size="9" fill="#9ca3af">RW2</text>
-  <rect x="972" y="301" width="48" height="20" rx="4" fill="#1e1e2e"/>
-  <text x="981" y="315" font-family="monospace" font-size="9" fill="#9ca3af">JPEG</text>
-  <rect x="1026" y="301" width="42" height="20" rx="4" fill="#1e1e2e"/>
-  <text x="1035" y="315" font-family="monospace" font-size="9" fill="#9ca3af">TIFF</text>
-  <rect x="1074" y="301" width="42" height="20" rx="4" fill="#1e1e2e"/>
-  <text x="1083" y="315" font-family="monospace" font-size="9" fill="#9ca3af">PNG</text>
-
-  <!-- Brand logos text -->
-  <text x="830" y="350" font-family="Inter, system-ui, sans-serif" font-size="9" fill="#6b7280">Canon  Nikon  Sony  Fuji  Olympus  Panasonic  Leica  Hasselblad  DJI</text>
-  <text x="830" y="370" font-family="Inter, system-ui, sans-serif" font-size="9" fill="#4b5563">+ hundreds more</text>
+  <text x="830" y="248" font-family="system-ui, sans-serif" font-size="12" fill="#A39E96">Canon, Nikon, Sony, Fuji,</text>
+  <text x="830" y="268" font-family="system-ui, sans-serif" font-size="12" fill="#A39E96">Olympus, Panasonic, Leica,</text>
+  <text x="830" y="288" font-family="system-ui, sans-serif" font-size="12" fill="#A39E96">Hasselblad, DJI, and more.</text>
 </svg>

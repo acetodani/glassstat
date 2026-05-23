@@ -15,7 +15,8 @@
     "recharts": "^2.12.7",
     "react-leaflet": "^4.2.1",
     "leaflet": "^1.9.4",
-    "lucide-react": "^0.441.0"
+    "lucide-react": "^0.441.0",
+    "html2canvas": "^1.4.1"
   },
   "devDependencies": {
     "@types/react": "^18.3.5",

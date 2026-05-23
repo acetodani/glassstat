@@ -1,6 +1,9 @@
+from __future__ import annotations
+
 import asyncio
 from dataclasses import dataclass, field
 from pathlib import Path
+from typing import List
 
 from app.core.exiftool import find_images
 
@@ -23,7 +26,7 @@ class ScanStatus:
 scan_status = ScanStatus()
 
 
-async def discover_files(directory: str) -> list[Path]:
+async def discover_files(directory: str) -> List[Path]:
     path = Path(directory)
     if not path.exists():
         raise FileNotFoundError(f"Directory not found: {directory}")

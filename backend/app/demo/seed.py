@@ -1,7 +1,9 @@
 """Generate realistic demo data for GlassStat without requiring actual photos."""
+from __future__ import annotations
 
 import random
 from datetime import datetime, timedelta
+from typing import Tuple, Optional, List
 from sqlmodel import Session
 
 from app.db.database import engine

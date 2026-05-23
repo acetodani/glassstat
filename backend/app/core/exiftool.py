@@ -1,6 +1,9 @@
+from __future__ import annotations
+
 import json
 import subprocess
 from pathlib import Path
+from typing import List, Dict
 
 
 SUPPORTED_EXTENSIONS = {
@@ -10,14 +13,14 @@ SUPPORTED_EXTENSIONS = {
 }
 
 
-def extract_metadata(file_paths: list[Path]) -> list[dict]:
+def extract_metadata(file_paths: List[Path]) -> List[Dict]:
     if not file_paths:
         return []
 
     cmd = [
         "exiftool",
         "-json",
-        "-n",  # numeric values (no formatting)
+        "-n",
         "-Make",
         "-Model",
         "-LensMake",
@@ -44,7 +47,7 @@ def extract_metadata(file_paths: list[Path]) -> list[dict]:
     return json.loads(result.stdout)
 
 
-def find_images(directory: Path) -> list[Path]:
+def find_images(directory: Path) -> List[Path]:
     images = []
     for path in directory.rglob("*"):
         if path.suffix.lower() in SUPPORTED_EXTENSIONS and not path.name.startswith("."):

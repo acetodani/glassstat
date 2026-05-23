@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { useFetch } from "../../hooks/useAnalytics";
-import { api } from "../../api/client";
 import WrappedCard from "./WrappedCard";
 
 export default function WrappedPage() {
@@ -14,8 +13,8 @@ export default function WrappedPage() {
 
   if (wrappedLoading || archLoading) {
     return (
-      <div className="flex items-center justify-center h-full">
-        <div className="animate-pulse text-gray-400">Generating your Wrapped...</div>
+      <div className="flex items-center justify-center h-[60vh]">
+        <p className="text-stone font-mono text-sm">generating your wrapped...</p>
       </div>
     );
   }
@@ -23,10 +22,10 @@ export default function WrappedPage() {
   if (!wrappedData) return null;
 
   return (
-    <div className="max-w-lg mx-auto py-8">
-      <div className="text-center mb-8">
-        <h2 className="text-3xl font-bold">Your {year} in Photos</h2>
-        <p className="text-gray-400 mt-2">Share your shooting stats with the world</p>
+    <div className="max-w-md mx-auto pt-12">
+      <div className="text-center mb-12">
+        <h1 className="font-display text-5xl">{year}</h1>
+        <p className="text-stone mt-2">your year in photos</p>
       </div>
       <WrappedCard data={wrappedData} archetype={archetypeData || { primary: null }} />
     </div>

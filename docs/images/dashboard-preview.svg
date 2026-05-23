@@ -1,162 +1,78 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 700" fill="none">
-  <!-- Background -->
-  <rect width="1200" height="700" rx="12" fill="#0a0a0f"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 680" fill="none">
+  <rect width="1200" height="680" fill="#F8F6F1"/>
 
-  <!-- Sidebar -->
-  <rect x="0" y="0" width="220" height="700" rx="12" fill="#111118"/>
-  <rect x="220" y="0" width="1" height="700" fill="#1e1e2e"/>
+  <!-- Nav -->
+  <text x="60" y="45" font-family="Georgia, serif" font-size="20" fill="#1A1A1A">GlassStat</text>
+  <text x="1000" y="45" font-family="system-ui, sans-serif" font-size="13" fill="#A39E96">Overview</text>
+  <text x="1070" y="45" font-family="system-ui, sans-serif" font-size="13" fill="#A39E96">Wrapped</text>
+  <text x="1140" y="45" font-family="system-ui, sans-serif" font-size="13" fill="#A39E96">Import</text>
 
-  <!-- Logo -->
-  <circle cx="40" cy="35" r="12" fill="#36adf8" opacity="0.2"/>
-  <path d="M34 35 L40 29 L46 35 L40 41 Z" fill="#36adf8"/>
-  <text x="58" y="40" font-family="Inter, system-ui, sans-serif" font-size="16" font-weight="700" fill="#ffffff">GlassStat</text>
+  <!-- Hero stats -->
+  <text x="60" y="120" font-family="Georgia, serif" font-size="64" fill="#1A1A1A">12,847</text>
+  <text x="60" y="145" font-family="'Courier New', monospace" font-size="10" fill="#A39E96" letter-spacing="2">TOTAL PHOTOS</text>
 
-  <!-- Nav items -->
-  <rect x="12" y="65" width="196" height="36" rx="8" fill="#36adf8" opacity="0.12"/>
-  <text x="44" y="88" font-family="Inter, system-ui, sans-serif" font-size="13" fill="#7cc8fc">Dashboard</text>
-  <text x="44" y="124" font-family="Inter, system-ui, sans-serif" font-size="13" fill="#6b7280">Import</text>
+  <text x="340" y="120" font-family="Georgia, serif" font-size="64" fill="#1A1A1A">7</text>
+  <text x="340" y="145" font-family="'Courier New', monospace" font-size="10" fill="#A39E96" letter-spacing="2">LENSES</text>
 
-  <!-- Header bar -->
-  <rect x="220" y="0" width="980" height="50" fill="#0a0a0f"/>
-  <rect x="220" y="50" width="980" height="1" fill="#1e1e2e"/>
-  <text x="1100" y="30" font-family="Inter, system-ui, sans-serif" font-size="11" fill="#6b7280" text-anchor="end">Lens &amp; Gear Analytics</text>
+  <text x="480" y="120" font-family="Georgia, serif" font-size="64" fill="#1A1A1A">3</text>
+  <text x="480" y="145" font-family="'Courier New', monospace" font-size="10" fill="#A39E96" letter-spacing="2">BODIES</text>
 
-  <!-- Stat Cards Row -->
-  <!-- Card 1: Total Photos -->
-  <rect x="240" y="70" width="220" height="90" rx="10" fill="#111118" stroke="#1e1e2e" stroke-width="1"/>
-  <text x="260" y="100" font-family="Inter, system-ui, sans-serif" font-size="11" fill="#6b7280">Total Photos</text>
-  <text x="260" y="135" font-family="Inter, system-ui, sans-serif" font-size="28" font-weight="700" fill="#ffffff">12,847</text>
+  <text x="620" y="120" font-family="Georgia, serif" font-size="64" fill="#1A1A1A">2020–24</text>
+  <text x="620" y="145" font-family="'Courier New', monospace" font-size="10" fill="#A39E96" letter-spacing="2">YEARS</text>
 
-  <!-- Card 2: Lenses Used -->
-  <rect x="480" y="70" width="220" height="90" rx="10" fill="#111118" stroke="#1e1e2e" stroke-width="1"/>
-  <text x="500" y="100" font-family="Inter, system-ui, sans-serif" font-size="11" fill="#6b7280">Lenses Used</text>
-  <text x="500" y="135" font-family="Inter, system-ui, sans-serif" font-size="28" font-weight="700" fill="#ffffff">7</text>
+  <!-- Focal Length section -->
+  <text x="60" y="210" font-family="Georgia, serif" font-size="28" fill="#1A1A1A">Focal Length</text>
+  <text x="250" y="210" font-family="system-ui, sans-serif" font-size="14" fill="#A39E96">where your eye goes</text>
 
-  <!-- Card 3: Camera Bodies -->
-  <rect x="720" y="70" width="220" height="90" rx="10" fill="#111118" stroke="#1e1e2e" stroke-width="1"/>
-  <text x="740" y="100" font-family="Inter, system-ui, sans-serif" font-size="11" fill="#6b7280">Camera Bodies</text>
-  <text x="740" y="135" font-family="Inter, system-ui, sans-serif" font-size="28" font-weight="700" fill="#ffffff">3</text>
+  <!-- Chart card -->
+  <rect x="60" y="230" width="1080" height="180" rx="20" fill="#EDE9E3"/>
 
-  <!-- Card 4: Date Range -->
-  <rect x="960" y="70" width="220" height="90" rx="10" fill="#111118" stroke="#1e1e2e" stroke-width="1"/>
-  <text x="980" y="100" font-family="Inter, system-ui, sans-serif" font-size="11" fill="#6b7280">Date Range</text>
-  <text x="980" y="135" font-family="Inter, system-ui, sans-serif" font-size="28" font-weight="700" fill="#ffffff">2020–2024</text>
+  <!-- Bars -->
+  <rect x="100" y="330" width="32" height="60" rx="4" fill="#D4CFC7"/>
+  <rect x="150" y="300" width="32" height="90" rx="4" fill="#D4CFC7"/>
+  <rect x="200" y="260" width="32" height="130" rx="4" fill="#1A1A1A"/>
+  <rect x="250" y="280" width="32" height="110" rx="4" fill="#1A1A1A"/>
+  <rect x="300" y="310" width="32" height="80" rx="4" fill="#D4CFC7"/>
+  <rect x="350" y="325" width="32" height="65" rx="4" fill="#D4CFC7"/>
+  <rect x="400" y="285" width="32" height="105" rx="4" fill="#E8553D"/>
+  <rect x="450" y="320" width="32" height="70" rx="4" fill="#D4CFC7"/>
+  <rect x="500" y="340" width="32" height="50" rx="4" fill="#D4CFC7"/>
+  <rect x="550" y="355" width="32" height="35" rx="4" fill="#D4CFC7"/>
 
-  <!-- Focal Length Chart -->
-  <rect x="240" y="180" width="470" height="240" rx="10" fill="#111118" stroke="#1e1e2e" stroke-width="1"/>
-  <text x="260" y="210" font-family="Inter, system-ui, sans-serif" font-size="12" fill="#6b7280">Focal Length Distribution</text>
+  <!-- Axis labels -->
+  <text x="108" y="400" font-family="'Courier New', monospace" font-size="9" fill="#A39E96">16mm</text>
+  <text x="158" y="400" font-family="'Courier New', monospace" font-size="9" fill="#A39E96">24mm</text>
+  <text x="208" y="400" font-family="'Courier New', monospace" font-size="9" fill="#A39E96">35mm</text>
+  <text x="258" y="400" font-family="'Courier New', monospace" font-size="9" fill="#A39E96">50mm</text>
+  <text x="308" y="400" font-family="'Courier New', monospace" font-size="9" fill="#A39E96">70mm</text>
+  <text x="358" y="400" font-family="'Courier New', monospace" font-size="9" fill="#A39E96">85mm</text>
+  <text x="405" y="400" font-family="'Courier New', monospace" font-size="9" fill="#A39E96">100mm</text>
+  <text x="455" y="400" font-family="'Courier New', monospace" font-size="9" fill="#A39E96">135mm</text>
+  <text x="505" y="400" font-family="'Courier New', monospace" font-size="9" fill="#A39E96">200mm</text>
+  <text x="555" y="400" font-family="'Courier New', monospace" font-size="9" fill="#A39E96">400mm</text>
 
-  <!-- Bar chart -->
-  <rect x="280" y="350" width="30" height="50" rx="3" fill="#36adf8"/>
-  <rect x="320" y="310" width="30" height="90" rx="3" fill="#36adf8"/>
-  <rect x="360" y="250" width="30" height="150" rx="3" fill="#36adf8"/>
-  <rect x="400" y="280" width="30" height="120" rx="3" fill="#36adf8"/>
-  <rect x="440" y="330" width="30" height="70" rx="3" fill="#36adf8"/>
-  <rect x="480" y="355" width="30" height="45" rx="3" fill="#36adf8"/>
-  <rect x="520" y="300" width="30" height="100" rx="3" fill="#36adf8"/>
-  <rect x="560" y="340" width="30" height="60" rx="3" fill="#36adf8"/>
-  <rect x="600" y="365" width="30" height="35" rx="3" fill="#36adf8"/>
-  <rect x="640" y="375" width="30" height="25" rx="3" fill="#36adf8"/>
-
-  <!-- X-axis labels -->
-  <text x="290" y="395" font-family="Inter, system-ui, sans-serif" font-size="9" fill="#6b7280">16mm</text>
-  <text x="330" y="395" font-family="Inter, system-ui, sans-serif" font-size="9" fill="#6b7280">24mm</text>
-  <text x="370" y="395" font-family="Inter, system-ui, sans-serif" font-size="9" fill="#6b7280">35mm</text>
-  <text x="410" y="395" font-family="Inter, system-ui, sans-serif" font-size="9" fill="#6b7280">50mm</text>
-  <text x="450" y="395" font-family="Inter, system-ui, sans-serif" font-size="9" fill="#6b7280">70mm</text>
-  <text x="490" y="395" font-family="Inter, system-ui, sans-serif" font-size="9" fill="#6b7280">85mm</text>
-  <text x="527" y="395" font-family="Inter, system-ui, sans-serif" font-size="9" fill="#6b7280">100mm</text>
-  <text x="567" y="395" font-family="Inter, system-ui, sans-serif" font-size="9" fill="#6b7280">135mm</text>
-  <text x="607" y="395" font-family="Inter, system-ui, sans-serif" font-size="9" fill="#6b7280">200mm</text>
-  <text x="647" y="395" font-family="Inter, system-ui, sans-serif" font-size="9" fill="#6b7280">400mm</text>
-
-  <!-- Aperture Chart -->
-  <rect x="730" y="180" width="450" height="240" rx="10" fill="#111118" stroke="#1e1e2e" stroke-width="1"/>
-  <text x="750" y="210" font-family="Inter, system-ui, sans-serif" font-size="12" fill="#6b7280">Aperture Usage</text>
-
-  <!-- Aperture bars -->
-  <rect x="770" y="260" width="30" height="140" rx="3" fill="#7cc8fc"/>
-  <rect x="810" y="240" width="30" height="160" rx="3" fill="#7cc8fc"/>
-  <rect x="850" y="280" width="30" height="120" rx="3" fill="#7cc8fc"/>
-  <rect x="890" y="290" width="30" height="110" rx="3" fill="#7cc8fc"/>
-  <rect x="930" y="310" width="30" height="90" rx="3" fill="#7cc8fc"/>
-  <rect x="970" y="335" width="30" height="65" rx="3" fill="#7cc8fc"/>
-  <rect x="1010" y="350" width="30" height="50" rx="3" fill="#7cc8fc"/>
-  <rect x="1050" y="365" width="30" height="35" rx="3" fill="#7cc8fc"/>
-  <rect x="1090" y="378" width="30" height="22" rx="3" fill="#7cc8fc"/>
-  <rect x="1130" y="385" width="30" height="15" rx="3" fill="#7cc8fc"/>
-
-  <!-- Aperture x-axis -->
-  <text x="778" y="395" font-family="Inter, system-ui, sans-serif" font-size="9" fill="#6b7280">f/1.2</text>
-  <text x="818" y="395" font-family="Inter, system-ui, sans-serif" font-size="9" fill="#6b7280">f/1.4</text>
-  <text x="858" y="395" font-family="Inter, system-ui, sans-serif" font-size="9" fill="#6b7280">f/1.8</text>
-  <text x="898" y="395" font-family="Inter, system-ui, sans-serif" font-size="9" fill="#6b7280">f/2.0</text>
-  <text x="938" y="395" font-family="Inter, system-ui, sans-serif" font-size="9" fill="#6b7280">f/2.8</text>
-  <text x="978" y="395" font-family="Inter, system-ui, sans-serif" font-size="9" fill="#6b7280">f/4.0</text>
-  <text x="1018" y="395" font-family="Inter, system-ui, sans-serif" font-size="9" fill="#6b7280">f/5.6</text>
-  <text x="1058" y="395" font-family="Inter, system-ui, sans-serif" font-size="9" fill="#6b7280">f/8.0</text>
-  <text x="1095" y="395" font-family="Inter, system-ui, sans-serif" font-size="9" fill="#6b7280">f/11</text>
-  <text x="1135" y="395" font-family="Inter, system-ui, sans-serif" font-size="9" fill="#6b7280">f/16</text>
-
-  <!-- Timeline Chart (full width) -->
-  <rect x="240" y="440" width="940" height="120" rx="10" fill="#111118" stroke="#1e1e2e" stroke-width="1"/>
-  <text x="260" y="470" font-family="Inter, system-ui, sans-serif" font-size="12" fill="#6b7280">Shooting Timeline</text>
-
-  <!-- Area chart path -->
-  <defs>
-    <linearGradient id="timelineGrad" x1="0" y1="0" x2="0" y2="1">
-      <stop offset="0%" stop-color="#36adf8" stop-opacity="0.3"/>
-      <stop offset="100%" stop-color="#36adf8" stop-opacity="0"/>
-    </linearGradient>
-  </defs>
-  <path d="M270 540 L310 530 L350 525 L390 510 L430 520 L470 500 L510 490 L550 505 L590 485 L630 495 L670 480 L710 490 L750 475 L790 485 L830 470 L870 480 L910 465 L950 475 L990 460 L1030 470 L1070 455 L1110 460 L1150 450 L1150 545 L270 545 Z" fill="url(#timelineGrad)"/>
-  <path d="M270 540 L310 530 L350 525 L390 510 L430 520 L470 500 L510 490 L550 505 L590 485 L630 495 L670 480 L710 490 L750 475 L790 485 L830 470 L870 480 L910 465 L950 475 L990 460 L1030 470 L1070 455 L1110 460 L1150 450" stroke="#36adf8" stroke-width="2" fill="none"/>
-
-  <!-- Gear Usage -->
-  <rect x="240" y="580" width="470" height="105" rx="10" fill="#111118" stroke="#1e1e2e" stroke-width="1"/>
-  <text x="260" y="610" font-family="Inter, system-ui, sans-serif" font-size="12" fill="#6b7280">Gear Usage</text>
+  <!-- Your Glass section -->
+  <text x="60" y="470" font-family="Georgia, serif" font-size="28" fill="#1A1A1A">Your Glass</text>
+  <text x="210" y="470" font-family="system-ui, sans-serif" font-size="14" fill="#A39E96">ranked by usage</text>
 
   <!-- Gear bars -->
-  <text x="260" y="635" font-family="Inter, system-ui, sans-serif" font-size="10" fill="#9ca3af">FE 35mm f/1.4 GM</text>
-  <rect x="390" y="625" width="280" height="14" rx="7" fill="#1e1e2e"/>
-  <rect x="390" y="625" width="280" height="14" rx="7" fill="url(#gearGrad)"/>
-  <text x="680" y="636" font-family="Inter, system-ui, sans-serif" font-size="9" fill="#9ca3af">4,231</text>
+  <text x="60" y="510" font-family="'Courier New', monospace" font-size="12" fill="#1A1A1A">FE 35mm f/1.4 GM</text>
+  <text x="1060" y="510" font-family="'Courier New', monospace" font-size="11" fill="#A39E96" text-anchor="end">4,231</text>
+  <rect x="60" y="518" width="1080" height="8" rx="4" fill="#EDE9E3"/>
+  <rect x="60" y="518" width="1080" height="8" rx="4" fill="#E8553D"/>
 
-  <text x="260" y="658" font-family="Inter, system-ui, sans-serif" font-size="10" fill="#9ca3af">FE 24-70mm f/2.8</text>
-  <rect x="390" y="648" width="280" height="14" rx="7" fill="#1e1e2e"/>
-  <rect x="390" y="648" width="195" height="14" rx="7" fill="url(#gearGrad)"/>
-  <text x="595" y="659" font-family="Inter, system-ui, sans-serif" font-size="9" fill="#9ca3af">2,944</text>
+  <text x="60" y="555" font-family="'Courier New', monospace" font-size="12" fill="#1A1A1A">FE 24-70mm f/2.8 GM II</text>
+  <text x="1060" y="555" font-family="'Courier New', monospace" font-size="11" fill="#A39E96" text-anchor="end">2,944</text>
+  <rect x="60" y="563" width="1080" height="8" rx="4" fill="#EDE9E3"/>
+  <rect x="60" y="563" width="750" height="8" rx="4" fill="#1A1A1A"/>
 
-  <text x="260" y="681" font-family="Inter, system-ui, sans-serif" font-size="10" fill="#9ca3af">FE 85mm f/1.4 GM</text>
-  <rect x="390" y="671" width="280" height="14" rx="7" fill="#1e1e2e"/>
-  <rect x="390" y="671" width="130" height="14" rx="7" fill="url(#gearGrad)"/>
-  <text x="530" y="682" font-family="Inter, system-ui, sans-serif" font-size="9" fill="#9ca3af">1,872</text>
+  <text x="60" y="600" font-family="'Courier New', monospace" font-size="12" fill="#1A1A1A">FE 85mm f/1.4 GM</text>
+  <text x="1060" y="600" font-family="'Courier New', monospace" font-size="11" fill="#A39E96" text-anchor="end">1,872</text>
+  <rect x="60" y="608" width="1080" height="8" rx="4" fill="#EDE9E3"/>
+  <rect x="60" y="608" width="478" height="8" rx="4" fill="#1A1A1A"/>
 
-  <defs>
-    <linearGradient id="gearGrad" x1="0" y1="0" x2="1" y2="0">
-      <stop offset="0%" stop-color="#015ca1"/>
-      <stop offset="100%" stop-color="#36adf8"/>
-    </linearGradient>
-  </defs>
-
-  <!-- ISO Chart -->
-  <rect x="730" y="580" width="450" height="105" rx="10" fill="#111118" stroke="#1e1e2e" stroke-width="1"/>
-  <text x="750" y="610" font-family="Inter, system-ui, sans-serif" font-size="12" fill="#6b7280">ISO Patterns</text>
-
-  <!-- ISO bars -->
-  <rect x="770" y="630" width="35" height="45" rx="3" fill="#0c93e9"/>
-  <rect x="815" y="640" width="35" height="35" rx="3" fill="#0c93e9"/>
-  <rect x="860" y="648" width="35" height="27" rx="3" fill="#0c93e9"/>
-  <rect x="905" y="653" width="35" height="22" rx="3" fill="#0c93e9"/>
-  <rect x="950" y="660" width="35" height="15" rx="3" fill="#0c93e9"/>
-  <rect x="995" y="665" width="35" height="10" rx="3" fill="#0c93e9"/>
-  <rect x="1040" y="668" width="35" height="7" rx="3" fill="#0c93e9"/>
-
-  <text x="779" y="685" font-family="Inter, system-ui, sans-serif" font-size="8" fill="#6b7280">100</text>
-  <text x="824" y="685" font-family="Inter, system-ui, sans-serif" font-size="8" fill="#6b7280">200</text>
-  <text x="869" y="685" font-family="Inter, system-ui, sans-serif" font-size="8" fill="#6b7280">400</text>
-  <text x="914" y="685" font-family="Inter, system-ui, sans-serif" font-size="8" fill="#6b7280">800</text>
-  <text x="955" y="685" font-family="Inter, system-ui, sans-serif" font-size="8" fill="#6b7280">1600</text>
-  <text x="1000" y="685" font-family="Inter, system-ui, sans-serif" font-size="8" fill="#6b7280">3200</text>
-  <text x="1045" y="685" font-family="Inter, system-ui, sans-serif" font-size="8" fill="#6b7280">6400</text>
+  <text x="60" y="645" font-family="'Courier New', monospace" font-size="12" fill="#1A1A1A">Sigma 35mm f/1.4 Art</text>
+  <text x="1060" y="645" font-family="'Courier New', monospace" font-size="11" fill="#A39E96" text-anchor="end">1,203</text>
+  <rect x="60" y="653" width="1080" height="8" rx="4" fill="#EDE9E3"/>
+  <rect x="60" y="653" width="307" height="8" rx="4" fill="#1A1A1A"/>
 </svg>

@@ -1,27 +1,22 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 
 export function useFetch<T>(fetcher: () => Promise<T>) {
   const [data, setData] = useState<T | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
-  useEffect(() => {
-    let cancelled = false;
+  const refetch = useCallback(() => {
     setLoading(true);
+    setError(null);
     fetcher()
-      .then((result) => {
-        if (!cancelled) setData(result);
-      })
-      .catch((err) => {
-        if (!cancelled) setError(err.message);
-      })
-      .finally(() => {
-        if (!cancelled) setLoading(false);
-      });
-    return () => {
-      cancelled = true;
-    };
+      .then(setData)
+      .catch((err) => setError(err.message))
+      .finally(() => setLoading(false));
   }, []);
 
-  return { data, loading, error };
+  useEffect(() => {
+    refetch();
+  }, []);
+
+  return { data, loading, error, refetch };
 }

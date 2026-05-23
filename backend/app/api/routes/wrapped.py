@@ -1,4 +1,7 @@
-from fastapi import APIRouter, Depends, Query
+from __future__ import annotations
+
+from typing import Optional
+from fastapi import APIRouter, Depends
 from sqlmodel import Session
 
 from app.db.database import get_session
@@ -9,7 +12,7 @@ router = APIRouter(prefix="/api/wrapped", tags=["wrapped"])
 
 
 @router.get("/")
-def get_wrapped(year: int | None = None, session: Session = Depends(get_session)):
+def get_wrapped(year: Optional[int] = None, session: Session = Depends(get_session)):
     return generate_wrapped(session, year)
 
 

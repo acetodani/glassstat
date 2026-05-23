@@ -2,6 +2,15 @@
 @tailwind components;
 @tailwind utilities;
 
-body {
-  font-family: "Inter", system-ui, -apple-system, sans-serif;
+@layer base {
+  body {
+    background-color: #F8F6F1;
+    color: #1A1A1A;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  ::selection {
+    background-color: #E8553D;
+    color: white;
+  }
 }

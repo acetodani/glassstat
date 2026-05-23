@@ -5,27 +5,30 @@ import { GearUsageData } from "../../types";
 export default function GearTimeline() {
   const { data, loading } = useFetch<GearUsageData[]>(api.getGearUsage);
 
-  if (loading || !data) return <div className="h-64 animate-pulse bg-gray-800 rounded" />;
+  if (loading || !data) return <div className="h-64 bg-sand/30 rounded-2xl animate-pulse" />;
 
-  const lenses = data.filter((g) => g.type === "lens").slice(0, 8);
+  const lenses = data.filter((g) => g.type === "lens").slice(0, 6);
   const maxCount = Math.max(...lenses.map((l) => l.count), 1);
 
   return (
-    <div className="space-y-3">
-      {lenses.map((lens) => (
-        <div key={lens.model} className="flex items-center gap-3">
-          <span className="text-xs text-gray-400 w-32 truncate" title={lens.model}>
-            {lens.model}
-          </span>
-          <div className="flex-1 bg-gray-800 rounded-full h-5 overflow-hidden">
+    <div className="space-y-5">
+      {lenses.map((lens, i) => (
+        <div key={lens.model} className="group">
+          <div className="flex items-baseline justify-between mb-2">
+            <span className="font-mono text-sm tracking-tight">{lens.model}</span>
+            <span className="font-mono text-xs text-stone">
+              {lens.count.toLocaleString()}
+            </span>
+          </div>
+          <div className="w-full h-3 bg-warm rounded-full overflow-hidden">
             <div
-              className="bg-gradient-to-r from-glass-600 to-glass-400 h-full rounded-full transition-all"
-              style={{ width: `${(lens.count / maxCount) * 100}%` }}
+              className="h-full rounded-full transition-all duration-700"
+              style={{
+                width: `${(lens.count / maxCount) * 100}%`,
+                backgroundColor: i === 0 ? "#E8553D" : "#1A1A1A",
+              }}
             />
           </div>
-          <span className="text-xs text-gray-400 w-12 text-right">
-            {lens.count.toLocaleString()}
-          </span>
         </div>
       ))}
     </div>

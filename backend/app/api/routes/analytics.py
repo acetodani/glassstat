@@ -1,3 +1,6 @@
+from __future__ import annotations
+
+from typing import Optional
 from fastapi import APIRouter, Depends, Query
 from sqlmodel import Session
 
@@ -18,7 +21,7 @@ def focal_length(session: Session = Depends(get_session)):
 
 
 @router.get("/aperture")
-def aperture(lens: str | None = None, session: Session = Depends(get_session)):
+def aperture(lens: Optional[str] = None, session: Session = Depends(get_session)):
     return svc.get_aperture_distribution(session, lens)
 
 
@@ -34,7 +37,7 @@ def shutter_speed(session: Session = Depends(get_session)):
 
 @router.get("/timeline")
 def timeline(
-    granularity: str = Query("monthly", pattern="^(daily|weekly|monthly)$"),
+    granularity: str = Query("monthly", regex="^(daily|weekly|monthly)$"),
     session: Session = Depends(get_session),
 ):
     return svc.get_timeline(session, granularity)

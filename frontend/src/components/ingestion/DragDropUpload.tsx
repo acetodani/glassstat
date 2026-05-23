@@ -1,6 +1,5 @@
 import { useState, useCallback } from "react";
 import { api } from "../../api/client";
-import { Upload, Loader2 } from "lucide-react";
 
 export default function DragDropUpload() {
   const [dragging, setDragging] = useState(false);
@@ -39,8 +38,8 @@ export default function DragDropUpload() {
       onDragOver={(e) => { e.preventDefault(); setDragging(true); }}
       onDragLeave={() => setDragging(false)}
       onDrop={handleDrop}
-      className={`bg-gray-900 border-2 border-dashed rounded-xl p-10 text-center transition-colors cursor-pointer ${
-        dragging ? "border-glass-400 bg-glass-600/10" : "border-gray-700 hover:border-gray-600"
+      className={`border-2 border-dashed rounded-3xl p-12 text-center transition-all cursor-pointer ${
+        dragging ? "border-accent bg-accent/5" : "border-sand hover:border-stone"
       }`}
     >
       <input
@@ -52,19 +51,14 @@ export default function DragDropUpload() {
         id="file-upload"
       />
       <label htmlFor="file-upload" className="cursor-pointer">
-        {uploading ? (
-          <Loader2 className="w-10 h-10 mx-auto text-glass-400 animate-spin" />
-        ) : (
-          <Upload className="w-10 h-10 mx-auto text-gray-500" />
-        )}
-        <p className="mt-3 text-sm text-gray-400">
-          Drag & drop photos here, or click to browse
+        <p className="font-display text-2xl">
+          {uploading ? "Uploading..." : "Drop files here"}
         </p>
-        <p className="mt-1 text-xs text-gray-600">
-          Supports JPEG, RAW (CR2/CR3/NEF/ARW/DNG), HEIF, and more
+        <p className="text-stone text-sm mt-2">
+          JPEG, RAW, HEIF — anything with EXIF
         </p>
       </label>
-      {message && <p className="mt-3 text-sm text-glass-300">{message}</p>}
+      {message && <p className="mt-4 text-sm text-accent">{message}</p>}
     </div>
   );
 }
