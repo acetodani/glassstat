@@ -58,7 +58,7 @@ def _detect_subject(photo: Photo) -> Tuple[str, float]:
         return ("golden light", 85)
 
     # Night: high ISO + slow shutter = intentional night work
-    if iso >= 3200 and hour >= 20 or hour <= 5:
+    if iso >= 3200 and (hour >= 20 or hour <= 5):
         return ("night", 70)
 
     # General/snapshot: less intentional settings combo
